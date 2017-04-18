@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SeisWide_Surfer
 {
+    /// <summary>
+    /// Class Profile allows to calculate projection of a point on profile line 
+    /// </summary>
     class Profile
     {
         public double S1_X { get; set; }
@@ -18,6 +21,9 @@ namespace SeisWide_Surfer
 
         private double sign, A1, B1, C1, R1;
 
+        /// <summary>
+        /// Gets instance of Profile object taking values from settings.
+        /// </summary>
         public static Profile ExtractInstance
         {
             get
@@ -39,6 +45,9 @@ namespace SeisWide_Surfer
             }
         }
 
+        /// <summary>
+        /// Sets up all intermediate constants required for calculation of projections.
+        /// </summary>
         private void Init()
         {
             double dx = S2_X - S1_X;
@@ -51,16 +60,26 @@ namespace SeisWide_Surfer
             R1 = Math.Sqrt(A1 * A1 + B1 * B1);
         }
 
+        /// <summary>
+        /// Calculates projection of the point on the line of profile.
+        /// </summary>
+        /// <param name="x">X coordinate of the point.</param>
+        /// <param name="y">Y coordinate of the point.</param>
+        /// <returns>Value of projection.</returns>
         public double getProjection(double x, double y)
         {
             return (-sign * (A1 * x + B1 * y + C1) / R1 + L0);
         }
 
-        public double getProjection(Tuple<int, int> tuple)
+        public double getProjection(Tuple<int, int> point)
         {
-            return getProjection(tuple.Item1, tuple.Item2);
+            return getProjection(point.Item1, point.Item2);
         }
 
+        /// <summary>
+        /// Returns string representation of the profile parameters.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string basic = string.Format("S1: ({0}, {1})\nS2: ({2}, {3})\nN1: ({4}, {5})\nL: {6}\n",

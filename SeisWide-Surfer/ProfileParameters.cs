@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace SeisWide_Surfer
 {
+    /// <summary>
+    /// Form which provides opportunity to set profile parameters for calculating projections.
+    /// </summary>
     public partial class ProfileParameters : Form
     {
         public ProfileParameters()
