@@ -42,7 +42,7 @@ namespace SeisWide_Surfer
                 if (waveNum[i] == 0)
                     times[i] = 0;
 
-                Record rec = OffsetEnabled ?
+                Record rec = ProjectionsEnabled ?
                         new Record(distances[i], times[i], waveNum[i], stations[i], x0, offsets[i]) :
                         new Record(distances[i], times[i], waveNum[i], stations[i], x0);
                 records.AddLast(rec);
@@ -164,7 +164,7 @@ namespace SeisWide_Surfer
                     else if (0 <= tempTime)
                     {
                         xCenter = getDist(tempTime, r.Time, rNext.Time, r.XCenter, rNext.XCenter);
-                        offset = getDist(tempTime, r.Time, rNext.Time, r.Offset, rNext.Offset);
+                        offset = getDist(tempTime, r.Time, rNext.Time, r.Projection, rNext.Projection);
 
                         rOut = new OutRecord() { XCenter = xCenter, Time = tempTime, Offset = offset };
                         interpolation.Add(rOut);

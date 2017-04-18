@@ -515,6 +515,7 @@ namespace SeisWide_Surfer
                 Console.WriteLine("Interpolating file: {0}", Path.GetFileName(f));
                 // extracting first entry 
                 model.Initialize(f, useProjections);
+
                 model.ExtractFirstEntry();
                 if (ifSingle)
                 {

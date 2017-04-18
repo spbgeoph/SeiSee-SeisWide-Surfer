@@ -47,7 +47,7 @@ namespace SeisWide_Surfer
                     times[i] = 0;
 
                 
-                double key = OffsetEnabled ? offsets[i] : distances[i];
+                double key = ProjectionsEnabled ? offsets[i] : distances[i];
                 if (sortedRecords.ContainsKey(key))
                 {
                     bool shouldSwap = times[i] < sortedRecords[key].Time;
@@ -59,7 +59,7 @@ namespace SeisWide_Surfer
                 }
                 else
                 {
-                    Record rec = OffsetEnabled ?
+                    Record rec = ProjectionsEnabled ?
                         new Record(distances[i], times[i], waveNum[i], stations[i], x0, offsets[i]) :
                         new Record(distances[i], times[i], waveNum[i], stations[i], x0);
                     sortedRecords.Add(key, rec);
@@ -83,7 +83,7 @@ namespace SeisWide_Surfer
             if (records.Count <= 1)
             {
                 MessageBox.Show(string.Format("{0}\n\t{1}\n{2}",
-                    "Не было выделено записей при обработке файла", origin, "Проверьте, штатная ли это ситуация."),
+                    "Не было выделено записей при обработке файла", Source, "Проверьте, штатная ли это ситуация."),
                 "Предупреждение");
                 return;
             }
@@ -100,7 +100,7 @@ namespace SeisWide_Surfer
 
                 // okay, we got to mess here with dem 'flags' and 'signs'.
                 //      'flag' equalling 'TRUE' here means that 'r.Time' value is a multiple of 'timeDelta' value
-                // AND has been already saved in 'interpolation' list, so we need to make one step further (i.e. add 'delta')
+                // AND has been already saved in 'interpolation' list, so we need to make one step further (i.e. add 'timeDelta')
                 // in order to not duplicate an interpolation node.
                 //      'sign' 
                 temp = flag ? 
@@ -113,7 +113,7 @@ namespace SeisWide_Surfer
                     OutRecord outR;
                     if (Math.Abs(rNext.Time - temp) <= 0.00001)
                     {
-                        outR = new OutRecord() { XCenter = rNext.XCenter, Time = rNext.Time, Offset = rNext.Offset };
+                        outR = new OutRecord() { XCenter = rNext.XCenter, Time = rNext.Time, Offset = rNext.Projection };
                         interpolation.Add(outR);
                         flag = true;
                         break;
@@ -123,7 +123,7 @@ namespace SeisWide_Surfer
                     else
                     {
                         xCenter = getDist(temp, r.Time, rNext.Time, r.XCenter, rNext.XCenter);
-                        offset = getDist(temp, r.Time, rNext.Time, r.Offset, rNext.Offset);
+                        offset = getDist(temp, r.Time, rNext.Time, r.Projection, rNext.Projection);
                         outR = new OutRecord() { XCenter = xCenter, Time = temp, Offset = offset };
                         interpolation.Add(outR);
                         temp += delta;
