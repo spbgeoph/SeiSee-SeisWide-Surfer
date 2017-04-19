@@ -61,6 +61,24 @@ namespace SeisWide_Surfer.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Работа программы была завершена преждевременно. Устраните ошибки привязки SeisWide: записи одного номера волны с одинаковым номером трассы..
+        /// </summary>
+        internal static string msg_incorrect_txin {
+            get {
+                return ResourceManager.GetString("msg_incorrect_txin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на В выбранном каталоге были созданы подкаталоги для заголовков SeisWide, заголовков SeiSee и файлов корелляции формата &apos;tx.in&apos;, а также каталог для промежуточных результатов и каталог для выходных файлов интерполяции..
+        /// </summary>
+        internal static string msg_new_workspace {
+            get {
+                return ResourceManager.GetString("msg_new_workspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Записать значения проекций в файл .out.
         /// </summary>
         internal static string with {

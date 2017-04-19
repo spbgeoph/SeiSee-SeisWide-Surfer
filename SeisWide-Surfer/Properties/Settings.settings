@@ -53,5 +53,8 @@
     <Setting Name="Correct_All_Text" Type="System.String" Scope="User">
       <Value Profile="(Default)"> Для каждой пары файлов "заголовок - .in" записать привязку к трассе</Value>
     </Setting>
+    <Setting Name="UpgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -88,7 +88,7 @@ namespace SeisWide_Surfer
 
             dialog.Filter = "tx.in file (.in)|*.in";
             dialog.FilterIndex = 1;
-            if (Directory.Exists(man.SourceTXIN))
+            if (Directory.Exists(man.Folder) && Directory.Exists(man.SourceTXIN))
                 dialog.InitialDirectory = man.SourceTXIN;
 
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -110,7 +110,7 @@ namespace SeisWide_Surfer
 
             dialog.Filter = "SeisWide header file (.txt)|*.txt|All files|*.*";
             dialog.FilterIndex = 1;
-            if (Directory.Exists(man.SourceSeisWideHeader))
+            if (Directory.Exists(man.Folder) && Directory.Exists(man.SourceSeisWideHeader))
                 dialog.InitialDirectory = man.SourceSeisWideHeader;
 
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -131,7 +131,7 @@ namespace SeisWide_Surfer
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "SeiSee header file|";
             dialog.FilterIndex = 1;
-            if (Directory.Exists(man.SourceSeiSeeHeader))
+            if (Directory.Exists(man.Folder) && Directory.Exists(man.SourceSeiSeeHeader))
                 dialog.InitialDirectory = man.SourceSeiSeeHeader;
 
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -142,9 +142,9 @@ namespace SeisWide_Surfer
         }
 
         /// <summary>
-        /// Tries to parse delta from deltaTextBox, shows some message boxes in case of incorrect input.
+        /// Tries to parse timeDelta from deltaTextBox, shows some message boxes in case of incorrect input.
         /// </summary>
-        /// <param name="delta"></param>
+        /// <param name="timeDelta"></param>
         /// <returns></returns>
         private bool extractDelta(out double delta)
         {
