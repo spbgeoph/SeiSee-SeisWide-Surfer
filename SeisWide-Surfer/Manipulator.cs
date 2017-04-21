@@ -141,7 +141,7 @@ namespace SeisWide_Surfer
                     if (record[3].Equals(txinDict[record[4]]))
                     {
                         string msg = string.Format("File: {0}\nTrace {1}, wave {2}: Multiple occurences.\n",
-                            txin, record[4], record[3]);
+                            Path.GetFileName(txin), record[4], record[3]);
 
                         Console.WriteLine(msg);
                         //MessageBox.Show(msg, "Error");
