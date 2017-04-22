@@ -14,7 +14,12 @@ namespace SeisWide_Surfer
         private Dictionary<int, Tuple<int, int>> coordsFromSeisee = new Dictionary<int, Tuple<int, int>>();
         private Dictionary<int, Tuple<int, int>> joinedTraceWithCoords = new Dictionary<int, Tuple<int, int>>();
 
-        IModel model = new SortedArrayModel();
+        private IModel model = new SortedArrayModel();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TextWriter Writer { get; private set; }
 
         /// <summary>
         /// Suffix added to files with information about both hodographs.
@@ -73,26 +78,41 @@ namespace SeisWide_Surfer
 
 
         /// <summary>
-        /// Deploys workspace in the given folder. If any of subdirectories are missing,
-        /// those are created.
+        /// Creates new instance of file-and-directory manipulator. 
+        /// </summary>
+        /// <param name="_writer">Object that deals with all technical information about work process of program.</param>
+        public Manipulator(TextWriter _writer)
+        {
+            Writer = _writer;
+        }
+
+        /// <summary>
+        /// Creates new instance of file-and-directory manipulator. Output of all techincal info is redirected into console.
+        /// </summary>
+        public Manipulator() :
+            this(Console.Out)
+        {
+        }
+
+        /// <summary>
+        /// Deploys workspace in the given folder. Creates all of missing subdirectories required for work.
         /// </summary>
         /// <param name="folder">Path to folder that has been selected.</param>
         public void SelectWorkspace(string folder)
         {
+            Writer.WriteLine(folder);
 
-            Console.WriteLine(folder);
-
-            Console.WriteLine("header_seiswide exists? {0}", Directory.Exists(SourceSeiSeeHeader));
-            Console.WriteLine("header_seisee exsts? {0}", Directory.Exists(SourceSeiSeeHeader));
-            Console.WriteLine("txin source folder exists? {0}", Directory.Exists(SourceTXIN));
-            Console.WriteLine("bound txin folder exists? {0}", Directory.Exists(SourceBoundTXIN));
-            Console.WriteLine("folder for interpolation exists? {0}", Directory.Exists(SourceInterpolation));
+            Writer.WriteLine("header_seiswide exists? {0}", Directory.Exists(SourceSeiSeeHeader));
+            Writer.WriteLine("header_seisee exsts? {0}", Directory.Exists(SourceSeiSeeHeader));
+            Writer.WriteLine("txin source folder exists? {0}", Directory.Exists(SourceTXIN));
+            Writer.WriteLine("bound txin folder exists? {0}", Directory.Exists(SourceBoundTXIN));
+            Writer.WriteLine("folder for interpolation exists? {0}", Directory.Exists(SourceInterpolation));
 
             string[] dirs = { SourceSeiSeeHeader, SourceSeisWideHeader, SourceTXIN, SourceBoundTXIN, SourceInterpolation };
             if (dirs.Any(dir => !Directory.Exists(dir)))
             {
-                MessageBox.Show(Properties.Resources.msg_new_workspace, 
-                    "Дополнительные каталоги", 
+                MessageBox.Show(Properties.Resources.msg_new_workspace,
+                    "Дополнительные каталоги",
                     MessageBoxButtons.OK);
 
                 foreach (string dir in dirs)
@@ -106,6 +126,7 @@ namespace SeisWide_Surfer
         /// <param name="subdir">Full path of directory you want to clean.</param>
         private void cleanSubdir(string subdir)
         {
+            Writer.WriteLine("...Cleaning directory {0}", subdir);
             DirectoryInfo di = new DirectoryInfo(subdir);
             foreach (FileInfo file in di.GetFiles())
                 file.Delete();
@@ -121,9 +142,9 @@ namespace SeisWide_Surfer
         /// <returns>True, if file is consistent, and false otherwise.</returns>
         public bool CheckTXIN(string txin)
         {
-            // SeisWide may bind traces incorrectly. There are may be two records in 'tx.in' file with the same trace and the same
-            // wave number. With such an inconsistency in 'tx.in' this program will seem work normally, though its
-            // results are not supposed to be relevant.
+            // SeisWide may bind traces incorrectly. There are may be two records in 'tx.in' file with 
+            // the same trace and the same wave number. With such an inconsistency in 'tx.in' this program 
+            // will seem work normally, though its results are not supposed to be relevant.
 
             // We should track this mistake of binding in tx.in and note user about it.
 
@@ -140,10 +161,10 @@ namespace SeisWide_Surfer
                 {
                     if (record[3].Equals(txinDict[record[4]]))
                     {
-                        string msg = string.Format("File: {0}\nTrace {1}, wave {2}: Multiple occurences.\n",
-                            Path.GetFileName(txin), record[4], record[3]);
+                        string msg = string.Format("File: {0}{1}Trace {2}, wave {3}: Multiple occurences.",
+                            Path.GetFileName(txin), Environment.NewLine, record[4], record[3]);
 
-                        Console.WriteLine(msg);
+                        Writer.WriteLine(msg);
                         //MessageBox.Show(msg, "Error");
                         result = false;
                     }
@@ -163,12 +184,14 @@ namespace SeisWide_Surfer
         /// <returns>True, if every file in directory is consistent, and false otherwise.</returns>
         public bool CheckTXIN()
         {
+            Writer.WriteLine(@"...Checking input 'tx.in' files...");
             string[] txinFiles = Directory.GetFiles(SourceTXIN, "*.in");
             bool allTxinConsistent = true;
             foreach (string txin in txinFiles)
             {
                 allTxinConsistent = CheckTXIN(txin) && allTxinConsistent;
             }
+            Writer.WriteLine("...Checking finished.");
             return allTxinConsistent;
         }
 
@@ -212,7 +235,7 @@ namespace SeisWide_Surfer
             string outFile = Path.Combine(this.SourceBoundTXIN, Path.GetFileNameWithoutExtension(txinFile) + SuffixTotal + ".in");
             using (StreamWriter file = new StreamWriter(outFile))
             {
-                Console.WriteLine("opening file:\t{0}", Path.GetFileName(outFile));
+                Writer.WriteLine("...Creating  file:\t{0}", Path.GetFileName(outFile));
                 string result;
                 foreach (string line in lines)
                 {
@@ -227,7 +250,7 @@ namespace SeisWide_Surfer
                         file.WriteLine(result);
                         continue;
                     }
-                    //Console.WriteLine(line);
+                    //Writer.WriteLine(line);
 
                     double x = double.Parse(record[0]);
                     int trace = int.Parse(record[4]);
@@ -241,7 +264,7 @@ namespace SeisWide_Surfer
                             double.Parse(record[2]),    // this is error (0.050 value)
                             record[3],
                             trace);
-                    //Console.WriteLine(result);
+                    //Writer.WriteLine(result);
                     file.WriteLine(result);
                 }
             }
@@ -298,15 +321,16 @@ namespace SeisWide_Surfer
                 return;
             }
 
+            Writer.WriteLine("...Binding distances to traces...");
             foreach (string swHeader in seisWideHeaderFiles)
             {
                 string f = Path.GetFileName(swHeader);
                 string txin = Path.Combine(SourceTXIN, Path.ChangeExtension(f, ".in"));
-                Console.WriteLine("Parsing header:\t\t{0}", f);
-
+                
                 parseSWHeader(swHeader);
                 parseTXIN_Bind(txin);
             }
+            Writer.WriteLine("...Binding finished.");
         }
 
         /// <summary>
@@ -333,7 +357,7 @@ namespace SeisWide_Surfer
                 else if (lines[i].StartsWith("+-"))
                     break;
             }
-            //Console.WriteLine("distance {0}\nx {1}\ny {2}\ndata starts from {3}", dist, groupXColumn, groupYColumn, i);
+            //Writer.WriteLine("distance {0}\nx {1}\ny {2}\ndata starts from {3}", dist, groupXColumn, groupYColumn, i);
 
             string[] recordWithSource = lines[i + 1].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             coordsFromSeisee.Add(-1, new Tuple<int, int>(int.Parse(recordWithSource[sourceXColumn]),
@@ -401,7 +425,7 @@ namespace SeisWide_Surfer
 
             using (StreamWriter file = new StreamWriter(outFile))
             {
-                Console.WriteLine("Creating file:\t{0}", Path.GetFileName(outFile));
+                Writer.WriteLine("...creating file:\t{0}", Path.GetFileName(outFile));
                 string result;
                 foreach (string line in lines)
                 {
@@ -454,13 +478,8 @@ namespace SeisWide_Surfer
             coordsFromSeisee.Clear();
             joinedTraceWithCoords.Clear();
 
-            Console.WriteLine("Reading seisee {0}", hss);
             readSeiSeeHeader(hss);
-
-            Console.WriteLine("Reading seiswide {0}", hsw);
             readSeisWideHeader(hsw);
-
-            Console.WriteLine("Calculating projections of tx.in {0}", txin);
             createOut(txin, p);
         }
 
@@ -475,8 +494,6 @@ namespace SeisWide_Surfer
                 MessageBox.Show("Не указан или указан неправильно каталог.", "Ошибка");
                 return;
             }
-
-            Console.WriteLine(Folder);
 
             if (!CheckTXIN())
             {
@@ -512,8 +529,9 @@ namespace SeisWide_Surfer
                 return;
             }
 
+            Writer.WriteLine("...Calculating projections...");
             Profile p = Profile.ExtractInstance;
-            Console.WriteLine(p);
+            Writer.WriteLine("...Here are profile parameters:{0}{1}", Environment.NewLine, p);
             foreach (string ssh in sshFiles)
             {
                 string f = Path.GetFileName(ssh);
@@ -522,6 +540,7 @@ namespace SeisWide_Surfer
 
                 calculateProjection(txin, swh, ssh, p);
             }
+            Writer.WriteLine("...Projections calculated.");
         }
 
         /// <summary>
@@ -541,7 +560,7 @@ namespace SeisWide_Surfer
             cleanSubdir(SourceBoundTXIN);
 
             Profile p = Profile.ExtractInstance;
-            Console.WriteLine(p);
+            Writer.WriteLine(p);
             calculateProjection(txin, hsw, hss, p);
         }
 
@@ -642,7 +661,7 @@ namespace SeisWide_Surfer
 
             foreach (string f in outFiles)
             {
-                Console.WriteLine("Interpolating file: {0}", Path.GetFileName(f));
+                Writer.WriteLine("...Interpolating file: {0}", Path.GetFileName(f));
                 // extracting first entry 
                 model.Initialize(f, useProjections);
 
@@ -658,7 +677,6 @@ namespace SeisWide_Surfer
                     File.WriteAllText(fileFE, model.FirstEntryHeader);
                     File.AppendAllText(fileFE, model.FirstEntry());
                 }
-                Console.WriteLine("Writing first entry into {0}", fileFE);
 
                 // interpolating stuff
                 model.Interpolate(timeDelta);
@@ -686,9 +704,11 @@ namespace SeisWide_Surfer
             cleanSubdir(SourceInterpolation);
             string ext = useProjections ? ".out" : ".in";
 
+            Writer.WriteLine("...Starting interpolation  procedure...");
             processInterpolation(SuffixTotal, ext, delta, useProjections, intoSingleOutput);
             processInterpolation(SuffixReversed, ext, delta, useProjections, intoSingleOutput);
             processInterpolation(SuffixDirect, ext, delta, useProjections, intoSingleOutput);
+            Writer.WriteLine("...Interpolation  procedure  finished.");
         }
     }
 }

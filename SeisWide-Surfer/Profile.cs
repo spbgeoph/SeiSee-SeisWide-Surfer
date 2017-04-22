@@ -82,11 +82,11 @@ namespace SeisWide_Surfer
         /// <returns></returns>
         public override string ToString()
         {
-            string basic = string.Format("S1: ({0}, {1})\nS2: ({2}, {3})\nN1: ({4}, {5})\nL: {6}\n",
-                S1_X, S1_Y, S2_X, S2_Y, N1_X, N1_Y, L0);
+            string basic = string.Format("S1: ({0}, {1}){7}S2: ({2}, {3}){7}N1: ({4}, {5}){7}L: {6}{7}",
+                S1_X, S1_Y, S2_X, S2_Y, N1_X, N1_Y, L0, Environment.NewLine);
 
-            string aux1 = string.Format("A1: {0}\nB1: {1}\nC1: {2}\nR1 {3}",
-                A1, B1, C1, R1);
+            string aux1 = string.Format("A1: {0}{4}B1: {1}{4}C1: {2}{4}R1 {3}",
+                A1, B1, C1, R1, Environment.NewLine);
 
             return basic + aux1;
         }

@@ -57,6 +57,7 @@ namespace SeisWide_Surfer
             this.label4 = new System.Windows.Forms.Label();
             this.buttonShowParameters = new System.Windows.Forms.Button();
             this.useProjectionsBox = new System.Windows.Forms.CheckBox();
+            this.log = new System.Windows.Forms.TextBox();
             this.panelMain.SuspendLayout();
             this.panelManual.SuspendLayout();
             this.panelAutomatic.SuspendLayout();
@@ -66,44 +67,51 @@ namespace SeisWide_Surfer
             // 
             // buttonOpenFolder
             // 
+            this.buttonOpenFolder.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.buttonOpenFolder.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonOpenFolder.FlatAppearance.BorderSize = 2;
+            this.buttonOpenFolder.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonOpenFolder.Location = new System.Drawing.Point(23, 21);
             this.buttonOpenFolder.Name = "buttonOpenFolder";
             this.buttonOpenFolder.Size = new System.Drawing.Size(99, 40);
             this.buttonOpenFolder.TabIndex = 3;
             this.buttonOpenFolder.Text = "Открыть каталог";
-            this.buttonOpenFolder.UseVisualStyleBackColor = true;
+            this.buttonOpenFolder.UseVisualStyleBackColor = false;
             this.buttonOpenFolder.Click += new System.EventHandler(this.openFolderButton_Click);
             // 
             // buttonOpenTXIN
             // 
+            this.buttonOpenTXIN.BackColor = System.Drawing.SystemColors.ControlLight;
             this.buttonOpenTXIN.Location = new System.Drawing.Point(3, 23);
             this.buttonOpenTXIN.Name = "buttonOpenTXIN";
             this.buttonOpenTXIN.Size = new System.Drawing.Size(138, 24);
             this.buttonOpenTXIN.TabIndex = 5;
             this.buttonOpenTXIN.Text = "Указать .in";
-            this.buttonOpenTXIN.UseVisualStyleBackColor = true;
+            this.buttonOpenTXIN.UseVisualStyleBackColor = false;
             this.buttonOpenTXIN.Click += new System.EventHandler(this.openInButton_Click);
             // 
             // buttonOpenSW
             // 
+            this.buttonOpenSW.BackColor = System.Drawing.SystemColors.ControlLight;
             this.buttonOpenSW.Location = new System.Drawing.Point(3, 53);
             this.buttonOpenSW.Name = "buttonOpenSW";
             this.buttonOpenSW.Size = new System.Drawing.Size(138, 24);
             this.buttonOpenSW.TabIndex = 5;
             this.buttonOpenSW.Text = "Указать SeisWide header";
-            this.buttonOpenSW.UseVisualStyleBackColor = true;
+            this.buttonOpenSW.UseVisualStyleBackColor = false;
             this.buttonOpenSW.Click += new System.EventHandler(this.openSWButton_Click);
             // 
             // buttonInterpolate
             // 
             this.buttonInterpolate.AutoSize = true;
-            this.buttonInterpolate.Location = new System.Drawing.Point(146, 23);
+            this.buttonInterpolate.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.buttonInterpolate.Location = new System.Drawing.Point(148, 23);
             this.buttonInterpolate.Name = "buttonInterpolate";
             this.panelInterpolation.SetRowSpan(this.buttonInterpolate, 2);
-            this.buttonInterpolate.Size = new System.Drawing.Size(133, 52);
+            this.buttonInterpolate.Size = new System.Drawing.Size(135, 52);
             this.buttonInterpolate.TabIndex = 6;
             this.buttonInterpolate.Text = "Интерполировать все файлы привязки";
-            this.buttonInterpolate.UseVisualStyleBackColor = true;
+            this.buttonInterpolate.UseVisualStyleBackColor = false;
             this.buttonInterpolate.Click += new System.EventHandler(this.interpolateButton_Click);
             // 
             // label5
@@ -126,46 +134,50 @@ namespace SeisWide_Surfer
             // 
             this.buttonCorrectAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCorrectAll.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panelAutomatic.SetColumnSpan(this.buttonCorrectAll, 2);
             this.buttonCorrectAll.Location = new System.Drawing.Point(3, 23);
             this.buttonCorrectAll.Name = "buttonCorrectAll";
-            this.buttonCorrectAll.Size = new System.Drawing.Size(278, 63);
+            this.buttonCorrectAll.Size = new System.Drawing.Size(280, 63);
             this.buttonCorrectAll.TabIndex = 11;
             this.buttonCorrectAll.Text = " Для каждой пары файлов \"заголовок - .in\" записать привязку к трассе";
             this.t.SetToolTip(this.buttonCorrectAll, resources.GetString("buttonCorrectAll.ToolTip"));
-            this.buttonCorrectAll.UseVisualStyleBackColor = true;
+            this.buttonCorrectAll.UseVisualStyleBackColor = false;
             this.buttonCorrectAll.Click += new System.EventHandler(this.correctAllButton_Click);
             // 
             // buttonCorrect
             // 
+            this.buttonCorrect.BackColor = System.Drawing.SystemColors.ControlLight;
             this.buttonCorrect.Location = new System.Drawing.Point(3, 113);
             this.buttonCorrect.Name = "buttonCorrect";
             this.buttonCorrect.Size = new System.Drawing.Size(138, 48);
             this.buttonCorrect.TabIndex = 13;
             this.buttonCorrect.Text = "Записать привязку к трассе, взятую из заголовка SeisWide";
             this.t.SetToolTip(this.buttonCorrect, "Привязка времен файла корелляции (*.in) к трассам, взятым из заголовка.");
-            this.buttonCorrect.UseVisualStyleBackColor = true;
+            this.buttonCorrect.UseVisualStyleBackColor = false;
             this.buttonCorrect.Click += new System.EventHandler(this.correct_Click);
             // 
             // buttonOpenSeiSee
             // 
+            this.buttonOpenSeiSee.BackColor = System.Drawing.SystemColors.ControlLight;
             this.buttonOpenSeiSee.Location = new System.Drawing.Point(3, 83);
             this.buttonOpenSeiSee.Name = "buttonOpenSeiSee";
             this.buttonOpenSeiSee.Size = new System.Drawing.Size(138, 24);
             this.buttonOpenSeiSee.TabIndex = 5;
             this.buttonOpenSeiSee.Text = "Указать SeiSee header";
-            this.buttonOpenSeiSee.UseVisualStyleBackColor = true;
+            this.buttonOpenSeiSee.UseVisualStyleBackColor = false;
             this.buttonOpenSeiSee.Click += new System.EventHandler(this.openSeiSeeButton_Click);
             // 
             // panelMain
             // 
             this.panelMain.AutoSize = true;
-            this.panelMain.ColumnCount = 5;
+            this.panelMain.ColumnCount = 6;
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.25125F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.74875F));
+            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.panelMain.Controls.Add(this.buttonOpenFolder, 1, 1);
             this.panelMain.Controls.Add(this.pathToFolder, 2, 1);
             this.panelMain.Controls.Add(this.panelManual, 1, 2);
@@ -173,17 +185,20 @@ namespace SeisWide_Surfer
             this.panelMain.Controls.Add(this.label1, 4, 3);
             this.panelMain.Controls.Add(this.panelInterpolation, 4, 4);
             this.panelMain.Controls.Add(this.panelParameters, 1, 5);
+            this.panelMain.Controls.Add(this.log, 1, 7);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
-            this.panelMain.RowCount = 6;
+            this.panelMain.RowCount = 8;
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.panelMain.Size = new System.Drawing.Size(727, 432);
+            this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panelMain.Size = new System.Drawing.Size(754, 432);
             this.panelMain.TabIndex = 14;
             // 
             // pathToFolder
@@ -223,7 +238,7 @@ namespace SeisWide_Surfer
             this.panelManual.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panelManual.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.panelManual.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panelManual.Size = new System.Drawing.Size(391, 178);
+            this.panelManual.Size = new System.Drawing.Size(394, 178);
             this.panelManual.TabIndex = 8;
             // 
             // label3
@@ -235,7 +250,7 @@ namespace SeisWide_Surfer
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(385, 20);
+            this.label3.Size = new System.Drawing.Size(388, 20);
             this.label3.TabIndex = 6;
             this.label3.Text = "Ручная обработка";
             // 
@@ -246,7 +261,7 @@ namespace SeisWide_Surfer
             this.pathToTXIN.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SeisWide_Surfer.Properties.Settings.Default, "PathToIn", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.pathToTXIN.Location = new System.Drawing.Point(147, 23);
             this.pathToTXIN.Name = "pathToTXIN";
-            this.pathToTXIN.Size = new System.Drawing.Size(241, 20);
+            this.pathToTXIN.Size = new System.Drawing.Size(244, 20);
             this.pathToTXIN.TabIndex = 4;
             this.pathToTXIN.Text = global::SeisWide_Surfer.Properties.Settings.Default.PathToIn;
             // 
@@ -257,7 +272,7 @@ namespace SeisWide_Surfer
             this.pathToSW.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SeisWide_Surfer.Properties.Settings.Default, "PathToSW", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.pathToSW.Location = new System.Drawing.Point(147, 53);
             this.pathToSW.Name = "pathToSW";
-            this.pathToSW.Size = new System.Drawing.Size(241, 20);
+            this.pathToSW.Size = new System.Drawing.Size(244, 20);
             this.pathToSW.TabIndex = 4;
             this.pathToSW.Text = global::SeisWide_Surfer.Properties.Settings.Default.PathToSW;
             // 
@@ -268,7 +283,7 @@ namespace SeisWide_Surfer
             this.pathToSeiSee.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SeisWide_Surfer.Properties.Settings.Default, "PathToSeiSee", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.pathToSeiSee.Location = new System.Drawing.Point(147, 83);
             this.pathToSeiSee.Name = "pathToSeiSee";
-            this.pathToSeiSee.Size = new System.Drawing.Size(241, 20);
+            this.pathToSeiSee.Size = new System.Drawing.Size(244, 20);
             this.pathToSeiSee.TabIndex = 4;
             this.pathToSeiSee.Text = global::SeisWide_Surfer.Properties.Settings.Default.PathToSeiSee;
             // 
@@ -282,12 +297,12 @@ namespace SeisWide_Surfer
             this.panelAutomatic.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.17949F));
             this.panelAutomatic.Controls.Add(this.label2, 0, 0);
             this.panelAutomatic.Controls.Add(this.buttonCorrectAll, 0, 1);
-            this.panelAutomatic.Location = new System.Drawing.Point(440, 67);
+            this.panelAutomatic.Location = new System.Drawing.Point(443, 67);
             this.panelAutomatic.Name = "panelAutomatic";
             this.panelAutomatic.RowCount = 2;
             this.panelAutomatic.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelAutomatic.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 69F));
-            this.panelAutomatic.Size = new System.Drawing.Size(284, 89);
+            this.panelAutomatic.Size = new System.Drawing.Size(286, 89);
             this.panelAutomatic.TabIndex = 15;
             // 
             // label2
@@ -299,7 +314,7 @@ namespace SeisWide_Surfer
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(278, 20);
+            this.label2.Size = new System.Drawing.Size(280, 20);
             this.label2.TabIndex = 6;
             this.label2.Text = "Автоматическая обработка";
             // 
@@ -308,7 +323,7 @@ namespace SeisWide_Surfer
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(440, 159);
+            this.label1.Location = new System.Drawing.Point(443, 159);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 20);
             this.label1.TabIndex = 6;
@@ -323,14 +338,14 @@ namespace SeisWide_Surfer
             this.panelInterpolation.Controls.Add(this.buttonInterpolate, 1, 1);
             this.panelInterpolation.Controls.Add(this.singleCheckBox, 0, 2);
             this.panelInterpolation.Controls.Add(this.deltaTextBox, 0, 1);
-            this.panelInterpolation.Location = new System.Drawing.Point(440, 182);
+            this.panelInterpolation.Location = new System.Drawing.Point(443, 182);
             this.panelInterpolation.Name = "panelInterpolation";
             this.panelInterpolation.RowCount = 3;
             this.panelMain.SetRowSpan(this.panelInterpolation, 2);
             this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.panelInterpolation.Size = new System.Drawing.Size(282, 97);
+            this.panelInterpolation.Size = new System.Drawing.Size(286, 97);
             this.panelInterpolation.TabIndex = 16;
             // 
             // singleCheckBox
@@ -372,7 +387,7 @@ namespace SeisWide_Surfer
             this.panelParameters.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panelParameters.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panelParameters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.panelParameters.Size = new System.Drawing.Size(390, 91);
+            this.panelParameters.Size = new System.Drawing.Size(394, 89);
             this.panelParameters.TabIndex = 17;
             // 
             // label4
@@ -388,12 +403,13 @@ namespace SeisWide_Surfer
             // 
             // buttonShowParameters
             // 
+            this.buttonShowParameters.BackColor = System.Drawing.SystemColors.ControlLight;
             this.buttonShowParameters.Location = new System.Drawing.Point(3, 46);
             this.buttonShowParameters.Name = "buttonShowParameters";
             this.buttonShowParameters.Size = new System.Drawing.Size(150, 40);
             this.buttonShowParameters.TabIndex = 12;
             this.buttonShowParameters.Text = "Показать параметры створа профиля";
-            this.buttonShowParameters.UseVisualStyleBackColor = true;
+            this.buttonShowParameters.UseVisualStyleBackColor = false;
             this.buttonShowParameters.Click += new System.EventHandler(this.showParameters_Click);
             // 
             // useProjectionsBox
@@ -409,12 +425,27 @@ namespace SeisWide_Surfer
             this.useProjectionsBox.UseVisualStyleBackColor = true;
             this.useProjectionsBox.CheckedChanged += new System.EventHandler(this.useSeiSeeCheckBox_CheckedChanged);
             // 
+            // log
+            // 
+            this.log.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panelMain.SetColumnSpan(this.log, 4);
+            this.log.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.log.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.log.Location = new System.Drawing.Point(23, 366);
+            this.log.Multiline = true;
+            this.log.Name = "log";
+            this.log.ReadOnly = true;
+            this.log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.log.Size = new System.Drawing.Size(706, 63);
+            this.log.TabIndex = 18;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(729, 432);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(755, 432);
             this.Controls.Add(this.panelMain);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -464,6 +495,7 @@ namespace SeisWide_Surfer
         private Label label1;
         private TableLayoutPanel panelParameters;
         private Label label4;
+        private TextBox log;
     }
 }
 

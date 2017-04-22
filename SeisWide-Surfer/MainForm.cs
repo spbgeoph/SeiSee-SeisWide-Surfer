@@ -14,36 +14,35 @@ namespace SeisWide_Surfer
 {
     public partial class MainForm : Form
     {
-
-        Manipulator man = new Manipulator();
+        private Manipulator man;
 
         public MainForm()
         {
             InitializeComponent();
+            man = new Manipulator(new TextBoxWriter(log));
+            //man = new Manipulator();
+            log.Visible = !Console.Out.Equals(man.Writer);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            updateTitles();
+            updateButtons();
         }
 
         /// <summary>
-        /// Updates all titles on buttons according to state of useProjectionsBox.
+        /// Updates all buttons according to state of useProjectionsBox and Folder property of current Manipulator object.
         /// </summary>
-        private void updateTitles()
+        private void updateButtons()
         {
-            if (useProjectionsBox.Checked)
-            {
-                buttonCorrect.Text = Properties.Resources.with;
-                buttonCorrectAll.Text = Properties.Resources.with_all;
-                buttonInterpolate.Text = Properties.Resources.with_ip;
-            }
-            else
-            {
-                buttonCorrect.Text = Properties.Resources.without;
-                buttonCorrectAll.Text = Properties.Resources.without_all;
-                buttonInterpolate.Text = Properties.Resources.without_ip;
-            }
+            bool folderExists = Directory.Exists(man.Folder);
+            buttonCorrect.Enabled = folderExists;
+            buttonCorrectAll.Enabled = folderExists;
+            buttonInterpolate.Enabled = folderExists;
+
+            bool projections = useProjectionsBox.Checked;
+            buttonCorrect.Text = projections ? Properties.Resources.with : Properties.Resources.without;
+            buttonCorrectAll.Text = projections ? Properties.Resources.with_all : Properties.Resources.without_all;
+            buttonInterpolate.Text = projections ? Properties.Resources.with_ip : Properties.Resources.without_ip;
         }
 
         /// <summary>
@@ -63,6 +62,7 @@ namespace SeisWide_Surfer
                 pathToFolder.Text = dlgF.SelectedPath;
                 man.SelectWorkspace(dlgF.SelectedPath);
             }
+            updateButtons();
         }
 
         /// <summary>
@@ -246,8 +246,7 @@ namespace SeisWide_Surfer
         /// <param name="e"></param>
         private void useSeiSeeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            updateTitles();
+            updateButtons();
         }
-
     }
 }

@@ -24,6 +24,8 @@ namespace SeisWide_Surfer
 
         protected List<OutRecord> interpolation = new List<OutRecord>();
 
+        protected TextWriter Writer { get; private set; }
+
         /// <summary>
         /// Name of file model is working with right now.
         /// </summary>
@@ -97,7 +99,7 @@ namespace SeisWide_Surfer
                         directHodographIncoming = false;
                     }
                 }
-                else 
+                else
                 {
                     distances.Add(double.Parse(record[0]));
                     times.Add(double.Parse(record[1]));
@@ -122,10 +124,10 @@ namespace SeisWide_Surfer
                 {
                     MessageBox.Show(string.Format("\t{8}\n{0}\n{1} - {2}\n{3}\n{4}\n{5}\n{6} - {7}",
                                     "Осторожно: длина шага временной сетки при интерполяции не осталась неизменной.",
-                                    "Значение шага", 
+                                    "Значение шага",
                                     timeDelta,
                                     "Узлы интерполяции:",
-                                    interpolation[i - 1], 
+                                    interpolation[i - 1],
                                     interpolation[i],
                                     "Наблюдаемая разность",
                                     Math.Abs(interpolation[i].Time - interpolation[i - 1].Time),
@@ -157,14 +159,14 @@ namespace SeisWide_Surfer
         public string InterpolationResult()
         {
             StringBuilder sb = new StringBuilder();
-            
+
             foreach (OutRecord r in interpolation)
             {
-                string str = string.Format("{0,9:F3} {1,9:F3} {2,9:F3} {3,9:F3} {4,9:F3}", 
-                                            r.XCenter, 
-                                            r.Time, 
-                                            Math.Abs(r.Offset), 
-                                            r.Offset, 
+                string str = string.Format("{0,9:F3} {1,9:F3} {2,9:F3} {3,9:F3} {4,9:F3}",
+                                            r.XCenter,
+                                            r.Time,
+                                            Math.Abs(r.Offset),
+                                            r.Offset,
                                             x0);
 
                 sb.AppendFormat(str).AppendLine();
@@ -172,7 +174,7 @@ namespace SeisWide_Surfer
             return sb.ToString();
         }
 
-        public string FirstEntryHeader 
+        public string FirstEntryHeader
         {
             get
             {
@@ -181,8 +183,8 @@ namespace SeisWide_Surfer
             }
         }
 
-        public string InterpolationLabel { get {return string.Format("Количество узлов интерполяции - {0}", interpolation.Count);} }
-        
+        public string InterpolationLabel { get { return string.Format("Количество узлов интерполяции - {0}", interpolation.Count); } }
+
         /// <summary>
         /// From the loaded data extracts first entry (i.e. the 1st and the 2nd wave).
         /// </summary>
@@ -213,12 +215,12 @@ namespace SeisWide_Surfer
     /// </summary>
     public class Record
     {
-        public double Distance      { get; set; }
-        public double XCenter       { get; set; }
-        public double Time          { get; set; }
-        public int Wave             { get; set; }
-        public int Station          { get; set; }
-        public double Projection    { get; set; }
+        public double Distance { get; set; }
+        public double XCenter { get; set; }
+        public double Time { get; set; }
+        public int Wave { get; set; }
+        public int Station { get; set; }
+        public double Projection { get; set; }
 
         /// <summary>
         /// Creates new record.
