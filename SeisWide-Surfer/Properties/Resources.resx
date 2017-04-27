@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="with" xml:space="preserve">
-    <value>Записать значения проекций в файл .out</value>
+    <value>Записать привязку к трассе и значение проекций в файл .out</value>
   </data>
   <data name="without" xml:space="preserve">
     <value>Записать привязку к трассе, взятую из заголовка SeisWide</value>
@@ -134,7 +134,7 @@
   <data name="with_all" xml:space="preserve">
     <value>Для каждой тройки файлов
 &lt;заголовок SeiSee - заголовок SeisWide - .in&gt;
-записать значения проекций в файл .out</value>
+записать привязку к трассе и значение проекций в файл .out</value>
   </data>
   <data name="with_ip" xml:space="preserve">
     <value>Интерполировать все файлы .out</value>

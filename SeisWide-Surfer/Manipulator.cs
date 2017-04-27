@@ -444,7 +444,11 @@ namespace SeisWide_Surfer
                         continue;
                     }
 
+                    double x = double.Parse(record[0]);
                     int trace = int.Parse(record[4]);
+                    if (dict.ContainsKey(trace))
+                        x = ((dict[trace]) / 1000.0);
+
                     double projection = 0;
                     if (joinedTraceWithCoords.ContainsKey(trace))
                     {
@@ -454,7 +458,7 @@ namespace SeisWide_Surfer
 
                     double err = double.Parse(record[2]);
                     result = string.Format("{0,10:F3} {1,8:F3} {2,9:F3} {3,8} {4,7} {5,9:F3}",
-                            double.Parse(record[0]),
+                            x,
                             double.Parse(record[1]),    // this is time
                             double.Parse(record[2]),    // this is error (0.050 value)
                             record[3],
@@ -466,8 +470,9 @@ namespace SeisWide_Surfer
         }
 
         /// <summary>
-        /// Calculates projection for every trace in 'tx.in' file using SeiSee header, SeisWide header and profile parameters.
-        /// Result is written in 'tx.in'-like file in the SourceBoundTXIN directory.
+        /// Binds traces and calculates projection for every trace in 'tx.in' file using SeiSee header, 
+        /// SeisWide header and profile parameters. Result is written in 'tx.in'-like file 
+        /// in the SourceBoundTXIN directory.
         /// </summary>
         /// <param name="txin">Path to 'tx.in' file.</param>
         /// <param name="hsw">Path to SeisWide header.</param>
@@ -479,6 +484,7 @@ namespace SeisWide_Surfer
             joinedTraceWithCoords.Clear();
 
             readSeiSeeHeader(hss);
+            parseSWHeader(hsw);
             readSeisWideHeader(hsw);
             createOut(txin, p);
         }

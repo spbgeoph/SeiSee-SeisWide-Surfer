@@ -79,7 +79,7 @@ namespace SeisWide_Surfer.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Записать значения проекций в файл .out.
+        ///   Ищет локализованную строку, похожую на Записать привязку к трассе и значение проекций в файл .out.
         /// </summary>
         internal static string with {
             get {
@@ -90,7 +90,7 @@ namespace SeisWide_Surfer.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Для каждой тройки файлов
         ///&lt;заголовок SeiSee - заголовок SeisWide - .in&gt;
-        ///записать значения проекций в файл .out.
+        ///записать привязку к трассе и значение проекций в файл .out.
         /// </summary>
         internal static string with_all {
             get {
