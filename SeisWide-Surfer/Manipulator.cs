@@ -641,44 +641,6 @@ namespace SeisWide_Surfer
         }
 
         /// <summary>
-        /// </summary>
-        /// <param name="useProjections">Flag meaning if we need to work with either 'tx.in' files or
-        ///     files with additional projection column.</param>
-        public void ConsolidateTXIN(bool useProjections)
-        {
-            string ext = useProjections ? ExtOut : ExtIn;
-            string[] outFiles = Directory.GetFiles(SourceBoundTXIN, "*" + ext);
-            string lastLine = string.Empty;
-
-            using (StreamWriter total = new StreamWriter(Path.Combine(Folder, SuffixTotal + ext)),
-                             reversed = new StreamWriter(Path.Combine(Folder, SuffixReversed + ext)),
-                               direct = new StreamWriter(Path.Combine(Folder, SuffixDirect + ext)))
-            {
-                foreach (string file in outFiles)
-                {
-                    if (Path.GetFileNameWithoutExtension(file).EndsWith(SuffixTotal))
-                        continue;
-
-                    bool isDirect = file.IndexOf(SuffixDirect) > -1;
-                    string[] lines = File.ReadAllLines(file);
-
-                    int first = isDirect ? 1 : 0;
-                    int last = lines.Length - (isDirect ? 1 : 2);
-                    for (int i = first; i < last; i++)
-                    {
-                        total.WriteLine(lines[i]);
-                        (isDirect ? direct : reversed).WriteLine(lines[i]);
-                    }
-                    lastLine = lines[lines.Length - 1];
-                }
-
-                total.WriteLine(lastLine);
-                reversed.WriteLine(lastLine);
-                direct.WriteLine(lastLine);
-            }
-        }
-
-        /// <summary>
         /// Interpolates every 'tx.in' or 'tx.in'-like file in SourceBountTXIN directory with the given filename suffix
         /// and step of interpolation in time domain.
         /// </summary>

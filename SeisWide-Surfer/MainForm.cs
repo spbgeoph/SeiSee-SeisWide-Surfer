@@ -173,7 +173,6 @@ namespace SeisWide_Surfer
         {
             man.CorrectAllTXIN(useProjectionsBox.Checked);
             man.SplitHodographs(useProjectionsBox.Checked);
-            man.ConsolidateTXIN(useProjectionsBox.Checked);
         }
 
         /// <summary>
