@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SeisWide_Surfer
 {
@@ -24,25 +25,48 @@ namespace SeisWide_Surfer
         /// <summary>
         /// Gets instance of Profile object taking values from settings.
         /// </summary>
-        public static Profile ExtractInstance
+        public static bool ExtractInstance(out Profile p)
         {
-            get
+            var properties = Properties.Settings.Default;
+            try
             {
-                var properties = Properties.Settings.Default;
-                Profile p = new Profile()
-                {
-                    S1_X = double.Parse(properties.S1_X),
-                    S1_Y = double.Parse(properties.S1_Y),
-                    S2_X = double.Parse(properties.S2_X),
-                    S2_Y = double.Parse(properties.S2_Y),
-                    N1_X = double.Parse(properties.N1_X),
-                    N1_Y = double.Parse(properties.N1_Y),
-                    L0 = double.Parse(properties.L)
-                };
-                p.Init();
+                p = new Profile()
+                    {
+                        S1_X = double.Parse(properties.S1_X),
+                        S1_Y = double.Parse(properties.S1_Y),
+                        S2_X = double.Parse(properties.S2_X),
+                        S2_Y = double.Parse(properties.S2_Y),
+                        N1_X = double.Parse(properties.N1_X),
+                        N1_Y = double.Parse(properties.N1_Y),
+                        L0 = double.Parse(properties.L)
+                    };
 
-                return p;
+                p.Init();
             }
+            catch (FormatException e)
+            {
+                MessageBox.Show("Не удалось прочитать значение параметров профиля.", "Ошибка");
+                p = new Profile();
+                return false;
+            }
+
+            
+            catch (NotFiniteNumberException e)
+            {
+                MessageBox.Show("При вычислении дополнительных параметров произошло деление на нуль.", "Ошибка");
+                p = new Profile();
+                return false;
+            }
+
+            catch (ArithmeticException e)
+            {
+                MessageBox.Show("Не удалось совершить необходимые предварительные вычисления над параметрами профиля. Проверьте правильность их задания.", "Ошибка");
+                p = new Profile();
+                return false;
+            }
+            
+            return true;
+            
         }
 
         /// <summary>

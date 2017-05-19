@@ -512,10 +512,11 @@ namespace SeisWide_Surfer
 
             if (swhFiles.Length != sshFiles.Length)
             {
-                string error = string.Format("Количество заголовков SeiSee: {0}\nКоличество заголовков SeisWide: {1}",
+                string error = string.Format("{0}Количество заголовков SeiSee: {1}\nКоличество заголовков SeisWide: {2}",
+                    "Количество заголовков не совпадает!\n",
                     sshFiles.Length,
                     swhFiles.Length);
-                MessageBox.Show("Количество заголовков не совпадает!\n" + error, "Ошибка!");
+                MessageBox.Show(error, "Ошибка!");
                 return;
             }
 
@@ -536,7 +537,13 @@ namespace SeisWide_Surfer
             }
 
             Writer.WriteLine("...Calculating projections...");
-            Profile p = Profile.ExtractInstance;
+            Profile p;
+            if (!Profile.ExtractInstance(out p))
+            {
+                Writer.WriteLine("Attemption failed.");
+                return;
+            }
+
             Writer.WriteLine("...Here are profile parameters:{0}{1}", Environment.NewLine, p);
             foreach (string ssh in sshFiles)
             {
@@ -565,7 +572,13 @@ namespace SeisWide_Surfer
             }
             cleanSubdir(SourceBoundTXIN);
 
-            Profile p = Profile.ExtractInstance;
+            Profile p;
+            if (!Profile.ExtractInstance(out p))
+            {
+                Writer.WriteLine("Attemption failed.");
+                return;
+            }
+
             Writer.WriteLine(p);
             calculateProjection(txin, hsw, hss, p);
         }
