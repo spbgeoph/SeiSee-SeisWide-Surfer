@@ -108,7 +108,7 @@ namespace SeisWide_Surfer
         {
             OpenFileDialog dialog = new OpenFileDialog();
 
-            dialog.Filter = "SeisWide header file (.txt)|*.txt|All files|*.*";
+            dialog.Filter = "SEG-Y file|*.sgy;*.segy|All files|*.*";
             dialog.FilterIndex = 1;
             if (Directory.Exists(man.Folder) && Directory.Exists(man.SourceSeisWideHeader))
                 dialog.InitialDirectory = man.SourceSeisWideHeader;
@@ -200,13 +200,7 @@ namespace SeisWide_Surfer
             }
             else
             {
-                if (!File.Exists(pathToSeiSee.Text))
-                {
-                    MessageBox.Show("Не указан или указан неправильно путь к файлу заголовка SeiSee.\n" +
-                        "Недостаточно данных для вычисления проекций.", "Ошибка");
-                    return;
-                }
-                man.CorrectWithProjections(pathToTXIN.Text, pathToSW.Text, pathToSeiSee.Text);
+               man.CorrectWithProjections(pathToTXIN.Text, pathToSW.Text);
             }
 
             man.SplitHodographs(useProjectionsBox.Checked);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using Unplugged.Segy;
 
 namespace SeisWide_Surfer
 {
@@ -13,6 +14,10 @@ namespace SeisWide_Surfer
         private Dictionary<int, int> dict = new Dictionary<int, int>();
         private Dictionary<int, Tuple<int, int>> coordsFromSeisee = new Dictionary<int, Tuple<int, int>>();
         private Dictionary<int, Tuple<int, int>> joinedTraceWithCoords = new Dictionary<int, Tuple<int, int>>();
+
+        private Dictionary<int, SegyHeaderRecord> fromSegy = new Dictionary<int, SegyHeaderRecord>();
+        private int SourceX;
+        private int SourceY;
 
         private IModel model = new SortedArrayModel();
 
@@ -195,6 +200,7 @@ namespace SeisWide_Surfer
             return allTxinConsistent;
         }
 
+
         /// <summary>
         /// Used in binding procedure. Parses SeisWide header and extracts traces and distances.
         /// </summary>
@@ -220,6 +226,31 @@ namespace SeisWide_Surfer
 
                 dict.Add(trace, cdp);
                 i++;
+            }
+        }
+
+
+        public void readSEGY(string segyFile)
+        {
+            fromSegy.Clear();
+
+            var reader = new SegyReader();
+            ISegyFile file = reader.Read(segyFile);
+            int i = 0;
+            SourceX = file.Traces[0].Header.SourceX;
+            SourceY = file.Traces[0].Header.SourceY;
+
+            foreach (var trace in file.Traces)
+            {
+                var header = trace.Header;
+                SegyHeaderRecord record = new SegyHeaderRecord() { 
+                    Trace = ++i,
+                    CDP = header.CDP,
+                    Distance = header.Distance,
+                    GroupX = header.GroupX,
+                    GroupY = header.GroupY
+                };
+                fromSegy.Add(record.Trace, record);
             }
         }
 
@@ -254,8 +285,8 @@ namespace SeisWide_Surfer
 
                     double x = double.Parse(record[0]);
                     int trace = int.Parse(record[4]);
-                    if (dict.ContainsKey(trace))
-                        x = ((dict[trace]) / 1000.0);
+                    if (fromSegy.ContainsKey(trace))
+                        x = fromSegy[trace].CDP / 1000.0; // ((dict[trace]) / 1000.0);
 
                     double err = double.Parse(record[2]);
                     result = string.Format("{0,10:F3} {1,8:F3} {2,9:F3} {3,8} {4,7}",
@@ -264,7 +295,6 @@ namespace SeisWide_Surfer
                             double.Parse(record[2]),    // this is error (0.050 value)
                             record[3],
                             trace);
-                    //Writer.WriteLine(result);
                     file.WriteLine(result);
                 }
             }
@@ -273,7 +303,7 @@ namespace SeisWide_Surfer
         /// <summary>
         /// Binds distance to corresponding trace in the 'tx.in' file, using info from SeisWide header. 
         /// </summary>
-        /// <param name="swHeader"> Path to SeisWide header info about distances should be taken from.</param>
+        /// <param name="swHeader"> Path to corresponding SEG-Y file.</param>
         /// <param name="txin"> Path to 'tx.in' file. </param>
         public void Correct(string swHeader, string txin)
         {
@@ -284,7 +314,9 @@ namespace SeisWide_Surfer
                 MessageBox.Show(Properties.Resources.msg_incorrect_txin, "Обнаружены ошибки привязки трассы.");
                 return;
             }
-            parseSWHeader(swHeader);
+
+            //parseSWHeader(swHeader);
+            readSEGY(swHeader);
             parseTXIN_Bind(txin);
         }
 
@@ -432,28 +464,27 @@ namespace SeisWide_Surfer
                     string[] record = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     if (record.Length <= 4)
                     {
-                        var tuple = joinedTraceWithCoords[-1];
                         result = string.Format("{0,10:F3} {1,8:F3} {2,9:F3} {3,8} {4,7} {5,9:F3}",
                             double.Parse(record[0]),
                             double.Parse(record[1]),
                             double.Parse(record[2]),
                             int.Parse(record[3]),
                             "",
-                            p.getProjection(tuple) / 1000);
+                            p.getProjection(SourceX, SourceY) / 1000);
                         file.WriteLine(result);
                         continue;
                     }
 
                     double x = double.Parse(record[0]);
                     int trace = int.Parse(record[4]);
-                    if (dict.ContainsKey(trace))
-                        x = ((dict[trace]) / 1000.0);
-
+                   
+                   
                     double projection = 0;
-                    if (joinedTraceWithCoords.ContainsKey(trace))
+                    if (fromSegy.ContainsKey(trace))
                     {
-                        var tuple = joinedTraceWithCoords[trace];
-                        projection = p.getProjection(tuple);
+                        SegyHeaderRecord rec = fromSegy[trace];
+                        x = rec.CDP / 1000.0; // ((dict[trace]) / 1000.0);
+                        projection = p.getProjection(rec.GroupX, rec.GroupY) / 1000;
                     }
 
                     double err = double.Parse(record[2]);
@@ -463,7 +494,7 @@ namespace SeisWide_Surfer
                             double.Parse(record[2]),    // this is error (0.050 value)
                             record[3],
                             trace,
-                            projection / 1000);
+                            projection);
                     file.WriteLine(result);
                 }
             }
@@ -475,17 +506,18 @@ namespace SeisWide_Surfer
         /// in the SourceBoundTXIN directory.
         /// </summary>
         /// <param name="txin">Path to 'tx.in' file.</param>
-        /// <param name="hsw">Path to SeisWide header.</param>
+        /// <param name="segy">Path to SeisWide header.</param>
         /// <param name="hss">Path to SeiSee header.</param>
         /// <param name="p">Profile parameters used in calculation of projections.</param>
-        private void calculateProjection(string txin, string hsw, string hss, Profile p)
+        private void calculateProjection(string txin, string segy, Profile p)
         {
-            coordsFromSeisee.Clear();
-            joinedTraceWithCoords.Clear();
+            //coordsFromSeisee.Clear();
+            //joinedTraceWithCoords.Clear();
 
-            readSeiSeeHeader(hss);
-            parseSWHeader(hsw);
-            readSeisWideHeader(hsw);
+            //readSeiSeeHeader(hss);
+            //parseSWHeader(segy);
+            //readSeisWideHeader(segy);
+            readSEGY(segy);
             createOut(txin, p);
         }
 
@@ -507,31 +539,17 @@ namespace SeisWide_Surfer
                 return;
             }
 
-            string[] swhFiles = Directory.GetFiles(SourceSeisWideHeader, "*.txt");
-            string[] sshFiles = Directory.GetFiles(SourceSeiSeeHeader, "*.");
-
-            if (swhFiles.Length != sshFiles.Length)
-            {
-                string error = string.Format("{0}Количество заголовков SeiSee: {1}\nКоличество заголовков SeisWide: {2}",
-                    "Количество заголовков не совпадает!\n",
-                    sshFiles.Length,
-                    swhFiles.Length);
-                MessageBox.Show(error, "Ошибка!");
-                return;
-            }
-
-            foreach (string h in swhFiles)
+            string[] segyFiles = Directory.GetFiles(SourceSeisWideHeader, "*.sgy");
+            
+            foreach (string h in segyFiles)
             {
                 string txin = Path.Combine(SourceTXIN, Path.ChangeExtension(Path.GetFileName(h), ".in"));
-                string ssh = Path.Combine(SourceSeiSeeHeader, Path.GetFileNameWithoutExtension(h));
-                if (File.Exists(txin) && File.Exists(ssh))
+                if (File.Exists(txin))
                     continue;
 
-                string error = string.Format("Для заголовка\n\t{0}\nне был найден .in файл c именем\n\t{1}\nили " +
-                    "заголовок SeiSee с именем\n\t{2}",
+                string error = string.Format("Для заголовка\n\t{0}\nне был найден .in файл c именем\n\t{1}\n",
                     h.Remove(0, Folder.Length),
-                    txin.Remove(0, Folder.Length),
-                    ssh.Remove(0, Folder.Length));
+                    txin.Remove(0, Folder.Length));
                 MessageBox.Show(error, "Ошибка!");
                 return;
             }
@@ -545,13 +563,12 @@ namespace SeisWide_Surfer
             }
 
             Writer.WriteLine("...Here are profile parameters:{0}{1}", Environment.NewLine, p);
-            foreach (string ssh in sshFiles)
+            foreach (string segy in segyFiles)
             {
-                string f = Path.GetFileName(ssh);
+                string f = Path.GetFileName(segy);
                 string txin = Path.Combine(SourceTXIN, Path.ChangeExtension(f, ".in"));
-                string swh = Path.Combine(SourceSeisWideHeader, Path.ChangeExtension(f, ".txt"));
 
-                calculateProjection(txin, swh, ssh, p);
+                calculateProjection(txin, segy, p);
             }
             Writer.WriteLine("...Projections calculated.");
         }
@@ -563,7 +580,7 @@ namespace SeisWide_Surfer
         /// <param name="txin">Path to 'tx.in' file.</param>
         /// <param name="hsw">Path to SeisWide header. </param>
         /// <param name="hss">Path to SeiSee header.</param>
-        public void CorrectWithProjections(string txin, string hsw, string hss)
+        public void CorrectWithProjections(string txin, string hsw)
         {
             if (!CheckTXIN(txin))
             {
@@ -580,7 +597,7 @@ namespace SeisWide_Surfer
             }
 
             Writer.WriteLine(p);
-            calculateProjection(txin, hsw, hss, p);
+            calculateProjection(txin, hsw, p);
         }
 
         /// <summary>
