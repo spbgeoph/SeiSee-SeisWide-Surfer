@@ -97,7 +97,7 @@ namespace SeisWide_Surfer
             this.buttonOpenSW.Name = "buttonOpenSW";
             this.buttonOpenSW.Size = new System.Drawing.Size(138, 24);
             this.buttonOpenSW.TabIndex = 5;
-            this.buttonOpenSW.Text = "Указать SeisWide header";
+            this.buttonOpenSW.Text = "Указать SEG-Y файл";
             this.buttonOpenSW.UseVisualStyleBackColor = false;
             this.buttonOpenSW.Click += new System.EventHandler(this.openSWButton_Click);
             // 
@@ -166,6 +166,7 @@ namespace SeisWide_Surfer
             this.buttonOpenSeiSee.TabIndex = 5;
             this.buttonOpenSeiSee.Text = "Указать SeiSee header";
             this.buttonOpenSeiSee.UseVisualStyleBackColor = false;
+            this.buttonOpenSeiSee.Visible = false;
             this.buttonOpenSeiSee.Click += new System.EventHandler(this.openSeiSeeButton_Click);
             // 
             // panelMain
@@ -177,7 +178,7 @@ namespace SeisWide_Surfer
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.25125F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.74875F));
-            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
+            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.panelMain.Controls.Add(this.buttonOpenFolder, 1, 1);
             this.panelMain.Controls.Add(this.pathToFolder, 2, 1);
             this.panelMain.Controls.Add(this.panelManual, 1, 2);
@@ -198,7 +199,7 @@ namespace SeisWide_Surfer
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.panelMain.Size = new System.Drawing.Size(754, 432);
+            this.panelMain.Size = new System.Drawing.Size(755, 432);
             this.panelMain.TabIndex = 14;
             // 
             // pathToFolder
@@ -286,6 +287,7 @@ namespace SeisWide_Surfer
             this.pathToSeiSee.Size = new System.Drawing.Size(244, 20);
             this.pathToSeiSee.TabIndex = 4;
             this.pathToSeiSee.Text = global::SeisWide_Surfer.Properties.Settings.Default.PathToSeiSee;
+            this.pathToSeiSee.Visible = false;
             // 
             // panelAutomatic
             // 

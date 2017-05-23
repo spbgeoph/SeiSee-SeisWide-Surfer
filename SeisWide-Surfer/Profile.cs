@@ -49,24 +49,19 @@ namespace SeisWide_Surfer
                 p = new Profile();
                 return false;
             }
-
-            
             catch (NotFiniteNumberException e)
             {
                 MessageBox.Show("При вычислении дополнительных параметров произошло деление на нуль.", "Ошибка");
                 p = new Profile();
                 return false;
             }
-
             catch (ArithmeticException e)
             {
                 MessageBox.Show("Не удалось совершить необходимые предварительные вычисления над параметрами профиля. Проверьте правильность их задания.", "Ошибка");
                 p = new Profile();
                 return false;
             }
-            
             return true;
-            
         }
 
         /// <summary>
