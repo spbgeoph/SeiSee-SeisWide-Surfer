@@ -239,8 +239,24 @@ namespace SeisWide_Surfer
                 string result;
                 foreach (string line in lines)
                 {
+                    if (string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
                     string[] record = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (record.Length <= 4)
+                    if (record.Length < 4)
+                    {
+                        string msg = string.Format("Файл: {0}{1}Не удалось прочесть следующую строку:{1}>{2}<{1}Продолжить обработку, пропустив данную строку?", 
+                            Path.GetFileName(txinFile), Environment.NewLine, line);
+                        if (MessageBox.Show(msg, "Предупреждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            continue;
+                        else
+                        {
+                            Writer.WriteLine("......Processing aborted for file {0}", Path.GetFileName(txinFile));
+                            return;
+                        }
+                    }
+                    else if (record.Length == 4)
                     {
                         result = string.Format("{0,10:F3} {1,8:F3} {2,9:F3} {3,8}",
                             double.Parse(record[0]),
@@ -429,8 +445,25 @@ namespace SeisWide_Surfer
                 string result;
                 foreach (string line in lines)
                 {
+                    if (string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
                     string[] record = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (record.Length <= 4)
+                    if (record.Length < 4)
+                    {
+                        string msg = string.Format("Файл: {0}{1}Не удалось прочесть следующую строку:{1}>{2}<{1}Продолжить обработку, пропустив данную строку?",
+                            Path.GetFileName(txin), Environment.NewLine, line);
+                        if (MessageBox.Show(msg, "Предупреждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            continue;
+                        else
+                        {
+                            Writer.WriteLine("......Processing aborted for file {0}", Path.GetFileName(txin));
+                            return;
+                        }
+                    }
+                   
+                    if (record.Length == 4)
                     {
                         var tuple = joinedTraceWithCoords[-1];
                         result = string.Format("{0,10:F3} {1,8:F3} {2,9:F3} {3,8} {4,7} {5,9:F3}",
