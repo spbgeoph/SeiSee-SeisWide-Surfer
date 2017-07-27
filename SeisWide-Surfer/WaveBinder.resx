@@ -117,35 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="with" xml:space="preserve">
-    <value>Записать привязку к трассе и значение проекций в файл .out</value>
-  </data>
-  <data name="without" xml:space="preserve">
-    <value>Записать привязку к трассе, взятую из заголовка SeisWide</value>
-  </data>
-  <data name="without_all" xml:space="preserve">
-    <value>Для каждой пары файлов
-&lt;заголовок SeisWide - .in&gt;
-записать привязку к трассе</value>
-  </data>
-  <data name="without_ip" xml:space="preserve">
-    <value>Интерполировать все файлы привязки</value>
-  </data>
-  <data name="with_all" xml:space="preserve">
-    <value>Для каждой тройки файлов
-&lt;заголовок SeiSee - заголовок SeisWide - .in&gt;
-записать привязку к трассе и значение проекций в файл .out</value>
-  </data>
-  <data name="with_ip" xml:space="preserve">
-    <value>Интерполировать все файлы .out</value>
-  </data>
-  <data name="msg_new_workspace" xml:space="preserve">
-    <value>В выбранном каталоге были созданы подкаталоги для заголовков SeisWide, заголовков SeiSee и файлов корелляции формата 'tx.in', а также каталог для промежуточных результатов и каталог для выходных файлов интерполяции.</value>
-  </data>
-  <data name="msg_incorrect_txin" xml:space="preserve">
-    <value>Работа программы была завершена преждевременно. Устраните ошибки привязки SeisWide: записи одного номера волны с одинаковым номером трассы.</value>
-  </data>
-  <data name="default_folder" xml:space="preserve">
-    <value>&lt;Укажите_рабочий_каталог&gt;</value>
-  </data>
 </root>

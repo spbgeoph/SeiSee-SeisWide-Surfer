@@ -74,6 +74,7 @@ namespace SeisWide_Surfer
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SeisWide_Surfer.Properties.Settings.Default.Save();
+            Program.WriteProfileData(SeisWide_Surfer.Properties.Settings.Default.Folder);
         }
 
         /// <summary>

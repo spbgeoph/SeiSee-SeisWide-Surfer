@@ -57,7 +57,7 @@ namespace SeisWide_Surfer
 
             // on the reversed distance-time curve
             LinkedListNode<Record> temp = records.First;
-            while (temp.Value.Station != 0)
+            while (temp.Value.Trace != 0)
             {
                 switch (temp.Value.Wave)
                 {
@@ -67,22 +67,22 @@ namespace SeisWide_Surfer
                         continue;
 
                     case 2:
-                        if (waveBuffer.ContainsKey(temp.Value.Station))
+                        if (waveBuffer.ContainsKey(temp.Value.Trace))
                         {
-                            MessageBox.Show(string.Format("Номер трассы {0} встретился еще раз.", temp.Value.Station), "Ошибка");
+                            MessageBox.Show(string.Format("Номер трассы {0} встретился еще раз.", temp.Value.Trace), "Ошибка");
                             return;
                         }
-                        waveBuffer.Add(temp.Value.Station, temp);
+                        waveBuffer.Add(temp.Value.Trace, temp);
                         temp = temp.Next;
                         break;
 
                     case 1:
-                        if (waveBuffer.ContainsKey(temp.Value.Station))
+                        if (waveBuffer.ContainsKey(temp.Value.Trace))
                         {
-                            bool isSecond = waveBuffer[temp.Value.Station].Value.Time < temp.Value.Time;
+                            bool isSecond = waveBuffer[temp.Value.Trace].Value.Time < temp.Value.Time;
                             temp = temp.Next;
 
-                            records.Remove(isSecond ? temp.Previous : waveBuffer[temp.Previous.Value.Station]);
+                            records.Remove(isSecond ? temp.Previous : waveBuffer[temp.Previous.Value.Trace]);
                         }
                         else
                             temp = temp.Next;
@@ -95,7 +95,7 @@ namespace SeisWide_Surfer
             // On the direct distance-time curve.
             // Here we move from the end towards blast point.
             temp = records.Last;
-            while (temp.Value.Station != 0)
+            while (temp.Value.Trace != 0)
             {
                 switch (temp.Value.Wave)
                 {
@@ -105,22 +105,22 @@ namespace SeisWide_Surfer
                         continue;
 
                     case 2:
-                        if (waveBuffer.ContainsKey(temp.Value.Station))
+                        if (waveBuffer.ContainsKey(temp.Value.Trace))
                         {
-                            MessageBox.Show(string.Format("Номер трассы {0} встретился еще раз.", temp.Value.Station), "Ошибка");
+                            MessageBox.Show(string.Format("Номер трассы {0} встретился еще раз.", temp.Value.Trace), "Ошибка");
                             return;
                         }
-                        waveBuffer.Add(temp.Value.Station, temp);
+                        waveBuffer.Add(temp.Value.Trace, temp);
                         temp = temp.Previous;
                         break;
 
                     case 1:
-                        if (waveBuffer.ContainsKey(temp.Value.Station))
+                        if (waveBuffer.ContainsKey(temp.Value.Trace))
                         {
-                            bool isSecond = waveBuffer[temp.Value.Station].Value.Time < temp.Value.Time;
+                            bool isSecond = waveBuffer[temp.Value.Trace].Value.Time < temp.Value.Time;
                             temp = temp.Previous;
 
-                            records.Remove(isSecond ? temp.Next : waveBuffer[temp.Value.Station]);
+                            records.Remove(isSecond ? temp.Next : waveBuffer[temp.Value.Trace]);
                         }
                         else
                             temp = temp.Previous;

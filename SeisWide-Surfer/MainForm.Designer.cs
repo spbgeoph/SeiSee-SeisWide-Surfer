@@ -50,19 +50,19 @@ namespace SeisWide_Surfer
             this.panelAutomatic = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panelInterpolation = new System.Windows.Forms.TableLayoutPanel();
-            this.singleCheckBox = new System.Windows.Forms.CheckBox();
-            this.deltaTextBox = new System.Windows.Forms.TextBox();
             this.panelParameters = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonShowParameters = new System.Windows.Forms.Button();
             this.useProjectionsBox = new System.Windows.Forms.CheckBox();
             this.log = new System.Windows.Forms.TextBox();
+            this.panelInterpolation = new System.Windows.Forms.TableLayoutPanel();
+            this.singleCheckBox = new System.Windows.Forms.CheckBox();
+            this.deltaTextBox = new System.Windows.Forms.TextBox();
             this.panelMain.SuspendLayout();
             this.panelManual.SuspendLayout();
             this.panelAutomatic.SuspendLayout();
-            this.panelInterpolation.SuspendLayout();
             this.panelParameters.SuspendLayout();
+            this.panelInterpolation.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOpenFolder
@@ -177,15 +177,15 @@ namespace SeisWide_Surfer
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.25125F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.74875F));
-            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
+            this.panelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.panelMain.Controls.Add(this.buttonOpenFolder, 1, 1);
             this.panelMain.Controls.Add(this.pathToFolder, 2, 1);
             this.panelMain.Controls.Add(this.panelManual, 1, 2);
             this.panelMain.Controls.Add(this.panelAutomatic, 4, 2);
             this.panelMain.Controls.Add(this.label1, 4, 3);
-            this.panelMain.Controls.Add(this.panelInterpolation, 4, 4);
             this.panelMain.Controls.Add(this.panelParameters, 1, 5);
             this.panelMain.Controls.Add(this.log, 1, 7);
+            this.panelMain.Controls.Add(this.panelInterpolation, 4, 4);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
@@ -198,7 +198,7 @@ namespace SeisWide_Surfer
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.panelMain.Size = new System.Drawing.Size(754, 432);
+            this.panelMain.Size = new System.Drawing.Size(756, 432);
             this.panelMain.TabIndex = 14;
             // 
             // pathToFolder
@@ -207,7 +207,7 @@ namespace SeisWide_Surfer
             this.pathToFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SeisWide_Surfer.Properties.Settings.Default, "Folder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.pathToFolder.Location = new System.Drawing.Point(129, 18);
             this.pathToFolder.Name = "pathToFolder";
-            this.pathToFolder.Size = new System.Drawing.Size(110, 13);
+            this.pathToFolder.Size = new System.Drawing.Size(157, 13);
             this.pathToFolder.TabIndex = 7;
             this.pathToFolder.Text = global::SeisWide_Surfer.Properties.Settings.Default.Folder;
             // 
@@ -329,48 +329,6 @@ namespace SeisWide_Surfer
             this.label1.TabIndex = 6;
             this.label1.Text = "Интерполяция";
             // 
-            // panelInterpolation
-            // 
-            this.panelInterpolation.ColumnCount = 2;
-            this.panelInterpolation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.70922F));
-            this.panelInterpolation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.29078F));
-            this.panelInterpolation.Controls.Add(this.label5, 0, 0);
-            this.panelInterpolation.Controls.Add(this.buttonInterpolate, 1, 1);
-            this.panelInterpolation.Controls.Add(this.singleCheckBox, 0, 2);
-            this.panelInterpolation.Controls.Add(this.deltaTextBox, 0, 1);
-            this.panelInterpolation.Location = new System.Drawing.Point(443, 182);
-            this.panelInterpolation.Name = "panelInterpolation";
-            this.panelInterpolation.RowCount = 3;
-            this.panelMain.SetRowSpan(this.panelInterpolation, 2);
-            this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.panelInterpolation.Size = new System.Drawing.Size(286, 97);
-            this.panelInterpolation.TabIndex = 16;
-            // 
-            // singleCheckBox
-            // 
-            this.singleCheckBox.AutoSize = true;
-            this.singleCheckBox.Checked = global::SeisWide_Surfer.Properties.Settings.Default.SingleFile;
-            this.singleCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.singleCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::SeisWide_Surfer.Properties.Settings.Default, "SingleFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.singleCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.singleCheckBox.Location = new System.Drawing.Point(3, 62);
-            this.singleCheckBox.Name = "singleCheckBox";
-            this.singleCheckBox.Size = new System.Drawing.Size(135, 20);
-            this.singleCheckBox.TabIndex = 12;
-            this.singleCheckBox.Text = "Всё в один файл";
-            this.singleCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // deltaTextBox
-            // 
-            this.deltaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SeisWide_Surfer.Properties.Settings.Default, "Delta", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.deltaTextBox.Location = new System.Drawing.Point(3, 23);
-            this.deltaTextBox.Name = "deltaTextBox";
-            this.deltaTextBox.Size = new System.Drawing.Size(100, 20);
-            this.deltaTextBox.TabIndex = 9;
-            this.deltaTextBox.Text = global::SeisWide_Surfer.Properties.Settings.Default.Delta;
-            // 
             // panelParameters
             // 
             this.panelParameters.AutoSize = true;
@@ -439,6 +397,48 @@ namespace SeisWide_Surfer
             this.log.Size = new System.Drawing.Size(706, 63);
             this.log.TabIndex = 18;
             // 
+            // panelInterpolation
+            // 
+            this.panelInterpolation.ColumnCount = 2;
+            this.panelInterpolation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.70922F));
+            this.panelInterpolation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.29078F));
+            this.panelInterpolation.Controls.Add(this.label5, 0, 0);
+            this.panelInterpolation.Controls.Add(this.buttonInterpolate, 1, 1);
+            this.panelInterpolation.Controls.Add(this.singleCheckBox, 0, 2);
+            this.panelInterpolation.Controls.Add(this.deltaTextBox, 0, 1);
+            this.panelInterpolation.Location = new System.Drawing.Point(443, 182);
+            this.panelInterpolation.Name = "panelInterpolation";
+            this.panelInterpolation.RowCount = 3;
+            this.panelMain.SetRowSpan(this.panelInterpolation, 2);
+            this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panelInterpolation.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.panelInterpolation.Size = new System.Drawing.Size(286, 97);
+            this.panelInterpolation.TabIndex = 16;
+            // 
+            // singleCheckBox
+            // 
+            this.singleCheckBox.AutoSize = true;
+            this.singleCheckBox.Checked = global::SeisWide_Surfer.Properties.Settings.Default.SingleFile;
+            this.singleCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.singleCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::SeisWide_Surfer.Properties.Settings.Default, "SingleFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.singleCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.singleCheckBox.Location = new System.Drawing.Point(3, 62);
+            this.singleCheckBox.Name = "singleCheckBox";
+            this.singleCheckBox.Size = new System.Drawing.Size(135, 20);
+            this.singleCheckBox.TabIndex = 12;
+            this.singleCheckBox.Text = "Всё в один файл";
+            this.singleCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // deltaTextBox
+            // 
+            this.deltaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SeisWide_Surfer.Properties.Settings.Default, "Delta", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.deltaTextBox.Location = new System.Drawing.Point(3, 23);
+            this.deltaTextBox.Name = "deltaTextBox";
+            this.deltaTextBox.Size = new System.Drawing.Size(100, 20);
+            this.deltaTextBox.TabIndex = 9;
+            this.deltaTextBox.Text = global::SeisWide_Surfer.Properties.Settings.Default.Delta;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -458,10 +458,10 @@ namespace SeisWide_Surfer
             this.panelManual.PerformLayout();
             this.panelAutomatic.ResumeLayout(false);
             this.panelAutomatic.PerformLayout();
-            this.panelInterpolation.ResumeLayout(false);
-            this.panelInterpolation.PerformLayout();
             this.panelParameters.ResumeLayout(false);
             this.panelParameters.PerformLayout();
+            this.panelInterpolation.ResumeLayout(false);
+            this.panelInterpolation.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

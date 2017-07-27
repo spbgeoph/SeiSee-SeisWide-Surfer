@@ -726,7 +726,7 @@ namespace SeisWide_Surfer
         }
 
         /// <summary>
-        /// Interpolates every 'tx.in' or 'tx.in'-like file in SourceBountTXIN directory with the given filename suffix
+        /// Interpolates every 'tx.in' or 'tx.in'-like file in SourceBountTXIN directory with the given source suffix
         /// and step of interpolation in time domain.
         /// </summary>
         /// <param name="suffix">Can be "-total", "-reversed", "-direct".</param>
