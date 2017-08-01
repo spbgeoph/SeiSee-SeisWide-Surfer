@@ -10,6 +10,8 @@ namespace SeisWide_Surfer
 {
     class AnotherModel
     {
+        public static readonly string format_interp = "{0,9:F3} {1,9:F3} {2,9:F3} {3,9:F3} {4,9:F3}";
+
         private double x0;
 
         private SortedList<double, Record> sortedRecords = new SortedList<double, Record>();
@@ -188,7 +190,7 @@ namespace SeisWide_Surfer
 
             foreach (OutRecord r in interpolation)
             {
-                string str = string.Format("{0,9:F3} {1,9:F3} {2,9:F3} {3,9:F3} {4,9:F3}",
+                string str = string.Format(format_interp,
                                             r.XCenter,
                                             r.Time,
                                             Math.Abs(r.Offset),
@@ -207,7 +209,7 @@ namespace SeisWide_Surfer
             for (int i = 0; i < interpolation.Count; i++)
             {
                 OutRecord r = interpolation[i];
-                string str = string.Format("{0,9:F3} {1,9:F3} {2,9:F3} {3,9:F3} {4,9:F3}",
+                string str = string.Format(format_interp,
                     r.XCenter, r.Time, Math.Abs(r.Offset), r.Offset, x0);
                 sb.Append(str).AppendLine();
 

@@ -20,8 +20,8 @@ namespace SeisWide_Surfer
 
         public static readonly string format_txin_separator = "{0,10:F3} {1,8:F3} {2,9:F3} {3,8}";
         public static readonly string format_txin_record = "{0,10:F3} {1,8:F3} {2,9:F3} {3,8} {4,7}";
-        public static readonly string format_hodo_record = "{0,10:F3} {1,8:F3} {2,3} {3,3} {4,10:F3} {5,10:F3}";
-        public static readonly string format_refl_squared_times = "{0,10:F3} {1,10:F3} {2,10:F3} {3,10:F3} {4,10:F3} {5,5}";
+        public static readonly string format_hodo_record = "{0,10:F3} {1,8:F3} {2,5} {3,5} {4,10:F3} {5,10:F3}";
+        public static readonly string format_refl_squared_times = "{0,10:F3} {1,10:F3} {2,10:F3} {3,5} {4,10:F3} {5,10:F3}";
 
         /// <summary>
         /// Gets name of current workspace folder from settings.
@@ -180,21 +180,26 @@ namespace SeisWide_Surfer
             {
                 HodoRev = Path.Combine(SourceVisualize, prefix + "hodograph_rev.txt");
                 HodoDirect = Path.Combine(SourceVisualize, prefix + "hodograph_dir.txt");
-                toBeErased.AddRange(new string[] { HodoRev, HodoDirect });
+                File.Delete(HodoRev);
+                File.Delete(HodoDirect);
+                string header = string.Format(format_hodo_record + "\n", "XCenter", "Time", "Wave", "Trace", "Source", "X");
+                File.AppendAllText(HodoRev, header);
+                File.AppendAllText(HodoDirect, header);
+
             }
             if (options.HasFlag(ProcessingFlag.Interpolate))
             {
                 InterTotal = Path.Combine(SourceVisualize, prefix + "inter_total_" + delta + ".txt");
                 InterRev = Path.Combine(SourceVisualize, prefix + "inter_rev_" + delta + ".txt");
                 InterDirect = Path.Combine(SourceVisualize, prefix + "inter_dir_" + delta + ".txt");
-                toBeErased.AddRange(new string[] { InterTotal, InterRev, InterDirect });
-            }
-
-            //cleanSubdir(SourceVisualize);
-            foreach (string file in toBeErased)
-            {
-                if (File.Exists(file))
-                    File.Delete(file);
+                File.Delete(InterTotal);
+                File.Delete(InterRev);
+                File.Delete(InterDirect);
+                string header = string.Format(AnotherModel.format_interp + "\n",
+                    "XCenter", "Time", "Offset", "SOffset", "Source");
+                File.AppendAllText(InterTotal, header);
+                File.AppendAllText(InterRev, header);
+                File.AppendAllText(InterDirect, header);
             }
 
             string[] txinFiles = Directory.GetFiles(SourcePicking, "*.in");
@@ -462,7 +467,7 @@ namespace SeisWide_Surfer
                         double xc = (pv + x) / 2;
                         double l = x - pv;
                         string reflResult = string.Format(format_refl_squared_times,
-                            pv, x, xc, time * time, l * l, trace);
+                            xc, time * time, l * l, trace, pv, x);
                         sbReflTotal.AppendLine(reflResult);
                         (isLeft ? sbReflRev : sbReflDir).AppendLine(reflResult);
                     }
@@ -470,21 +475,22 @@ namespace SeisWide_Surfer
                     double currX =
                         (options.HasFlag(ProcessingFlag.Project)) ? distToProj[traceToDist[trace].Item2] : x;
 
-                    if (options.HasFlag(ProcessingFlag.SplitHodographs))
+                    if (wave == 1 || wave == 2)
                     {
-                        if (wave == 1 || wave == 2)
+                        if (options.HasFlag(ProcessingFlag.SplitHodographs))
                         {
+
                             double xCenter = (pv + currX) / 2;
                             result = string.Format(format_hodo_record,
                                 xCenter, time, wave, trace, pv, currX);
 
                             (isLeft ? sbRev : sbDir).AppendLine(result);
                         }
-                    }
 
-                    if (options.HasFlag(ProcessingFlag.Interpolate))
-                    {
-                        model.AddRecord(x, time, wave, trace, currX);
+                        if (options.HasFlag(ProcessingFlag.Interpolate))
+                        {
+                            model.AddRecord(x, time, wave, trace, currX);
+                        }
                     }
                 }
             }
@@ -508,12 +514,14 @@ namespace SeisWide_Surfer
             cleanSubdir(SourceBinding);
             if (options.HasFlag(ProcessingFlag.SquaredTimes))
             {
-                if (File.Exists(ReflectedRev))
-                    File.Delete(ReflectedRev);
-                if (File.Exists(ReflectedDirect))
-                    File.Delete(ReflectedDirect);
-                if (File.Exists(ReflectedTotal))
-                    File.Delete(ReflectedTotal);
+                File.Delete(ReflectedRev);
+                File.Delete(ReflectedDirect);
+                File.Delete(ReflectedTotal);
+                string header = string.Format(format_refl_squared_times + "\n",
+                    "XCenter", "SqrTime", "SqrOffset", "Trace", "Source", "X");
+                File.AppendAllText(ReflectedTotal, header);
+                File.AppendAllText(ReflectedRev, header);
+                File.AppendAllText(ReflectedDirect, header);
             }
 
             string[] txinFiles = Directory.GetFiles(SourcePicking, "*.in");
