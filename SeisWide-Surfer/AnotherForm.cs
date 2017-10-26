@@ -247,5 +247,10 @@ namespace SeisWide_Surfer
                 textBox_refl_Contours.Text = file;
             }
         }
+
+        private void button_fe_BindUncertainy_Click(object sender, EventArgs e)
+        {
+            (new UncertaintiesForm(man)).Show();
+        }
     }
 }

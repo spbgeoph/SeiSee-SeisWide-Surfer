@@ -173,7 +173,7 @@
             this.Controls.Add(this.panelMain);
             this.Name = "WaveBinder";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Text = "WaveBinder";
+            this.Text = "Привязка типов волн";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WaveBinder_FormClosing);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();

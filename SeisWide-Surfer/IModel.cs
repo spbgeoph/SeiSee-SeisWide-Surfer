@@ -112,7 +112,7 @@ namespace SeisWide_Surfer
         }
 
         /// <summary>
-        /// Checks interpolated data if difference between 'time' values of two adjacent records equals to predefined 'timeDelta'.
+        /// Checks interpolated data if difference between 'time' values of two adjacent lines equals to predefined 'timeDelta'.
         /// If this difference is not constant, message box then appears.
         /// </summary>
         /// <param name="timeDelta">Interpolation step.</param>
@@ -203,7 +203,7 @@ namespace SeisWide_Surfer
         public abstract void Interpolate(double timeDelta);
 
         /// <summary>
-        /// Some string label, information about first-entry-extraction phase i.e. number of extracted records
+        /// Some string label, information about first-entry-extraction phase i.e. number of extracted lines
         /// </summary>
         /// <returns></returns>
         public abstract string IntermediateLabel();

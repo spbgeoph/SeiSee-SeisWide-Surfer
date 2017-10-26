@@ -18,9 +18,9 @@ namespace SeisWide_Surfer
 
         public TextWriter Writer { get; private set; }
 
-        public static readonly string format_txin_separator = "{0,10:F3} {1,8:F3} {2,9:F3} {3,8}";
-        public static readonly string format_txin_record = "{0,10:F3} {1,8:F3} {2,9:F3} {3,8} {4,7}";
-        public static readonly string format_hodo_record = "{0,10:F3} {1,8:F3} {2,5} {3,5} {4,10:F3} {5,10:F3}";
+        public static readonly string format_txin_separator = "{0,10:F3} {1,9:F3} {2,9:F3} {3,9}";
+        public static readonly string format_txin_record    = "{0,10:F3} {1,9:F3} {2,9:F3} {3,9} {4,10}";
+        public static readonly string format_hodo_record    = "{0,10:F3} {1,8:F3} {2,5} {3,5} {4,10:F3} {5,10:F3}";
         public static readonly string format_refl_squared_times = "{0,10:F3} {1,10:F3} {2,10:F3} {3,5} {4,10:F3} {5,10:F3}";
 
         /// <summary>
@@ -44,7 +44,6 @@ namespace SeisWide_Surfer
         public string SourceBinding { get { return Path.Combine(Folder, "out_binding"); } }
 
         /// <summary>
-        /// Gets name of folder where interpolation records are stored.
         /// </summary>
         public string SourceVisualize { get { return Path.Combine(Folder, "out_for_surfer"); } }
 
@@ -271,7 +270,7 @@ namespace SeisWide_Surfer
                 return false;
             }
 
-            // SeisWide may bind traces incorrectly. There are may be two records in 'tx.in' file with 
+            // SeisWide may bind traces incorrectly. There are may be two lines in 'tx.in' file with 
             // the same trace and the same wave number. With such an inconsistency in 'tx.in' this program 
             // will seem work normally, though its results are not supposed to be relevant.
 

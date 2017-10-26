@@ -47,6 +47,7 @@
             this.deltaTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button_fe_BindWaves = new System.Windows.Forms.Button();
+            this.button_fe_BindUncertainy = new System.Windows.Forms.Button();
             this.button_fe_Process = new System.Windows.Forms.Button();
             this.tabReflected = new System.Windows.Forms.TabPage();
             this.panel_refl = new System.Windows.Forms.TableLayoutPanel();
@@ -260,15 +261,18 @@
             this.panel_fe_Aux.Controls.Add(this.deltaTextBox, 0, 1);
             this.panel_fe_Aux.Controls.Add(this.label5, 0, 0);
             this.panel_fe_Aux.Controls.Add(this.button_fe_BindWaves, 0, 4);
+            this.panel_fe_Aux.Controls.Add(this.button_fe_BindUncertainy, 0, 6);
             this.panel_fe_Aux.Location = new System.Drawing.Point(397, 3);
             this.panel_fe_Aux.Name = "panel_fe_Aux";
-            this.panel_fe_Aux.RowCount = 5;
+            this.panel_fe_Aux.RowCount = 7;
             this.panel_fe_Aux.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel_fe_Aux.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel_fe_Aux.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel_fe_Aux.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.panel_fe_Aux.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.panel_fe_Aux.Size = new System.Drawing.Size(200, 149);
+            this.panel_fe_Aux.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel_fe_Aux.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel_fe_Aux.Size = new System.Drawing.Size(200, 225);
             this.panel_fe_Aux.TabIndex = 3;
             // 
             // buttonShowParameters
@@ -310,6 +314,16 @@
             this.button_fe_BindWaves.UseVisualStyleBackColor = true;
             this.button_fe_BindWaves.Click += new System.EventHandler(this.button_fe_BindWaves_Click);
             // 
+            // button_fe_BindUncertainy
+            // 
+            this.button_fe_BindUncertainy.Location = new System.Drawing.Point(3, 173);
+            this.button_fe_BindUncertainy.Name = "button_fe_BindUncertainy";
+            this.button_fe_BindUncertainy.Size = new System.Drawing.Size(150, 49);
+            this.button_fe_BindUncertainy.TabIndex = 14;
+            this.button_fe_BindUncertainy.Text = "Установить уровень погрешности в файлах корелляции";
+            this.button_fe_BindUncertainy.UseVisualStyleBackColor = true;
+            this.button_fe_BindUncertainy.Click += new System.EventHandler(this.button_fe_BindUncertainy_Click);
+            // 
             // button_fe_Process
             // 
             this.button_fe_Process.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -328,7 +342,7 @@
             this.tabReflected.Location = new System.Drawing.Point(4, 22);
             this.tabReflected.Name = "tabReflected";
             this.tabReflected.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReflected.Size = new System.Drawing.Size(722, 316);
+            this.tabReflected.Size = new System.Drawing.Size(723, 316);
             this.tabReflected.TabIndex = 1;
             this.tabReflected.Text = "Отраженная волна";
             // 
@@ -344,7 +358,7 @@
             this.panel_refl.RowCount = 2;
             this.panel_refl.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel_refl.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.panel_refl.Size = new System.Drawing.Size(716, 310);
+            this.panel_refl.Size = new System.Drawing.Size(717, 310);
             this.panel_refl.TabIndex = 1;
             // 
             // panel_refl_FirstStage
@@ -360,7 +374,8 @@
             this.panel_refl_FirstStage.Controls.Add(this.label_refl_Wave, 1, 0);
             this.panel_refl_FirstStage.Controls.Add(this.textBox_refl_Wave, 1, 1);
             this.panel_refl_FirstStage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_refl_FirstStage.Location = new System.Drawing.Point(3, 3);
+            this.panel_refl_FirstStage.Location = new System.Drawing.Point(0, 0);
+            this.panel_refl_FirstStage.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.panel_refl_FirstStage.Name = "panel_refl_FirstStage";
             this.panel_refl_FirstStage.RowCount = 5;
             this.panel_refl_FirstStage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -368,7 +383,7 @@
             this.panel_refl_FirstStage.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel_refl_FirstStage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panel_refl_FirstStage.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.panel_refl_FirstStage.Size = new System.Drawing.Size(710, 137);
+            this.panel_refl_FirstStage.Size = new System.Drawing.Size(717, 137);
             this.panel_refl_FirstStage.TabIndex = 0;
             // 
             // labelFirstStage
@@ -419,7 +434,7 @@
             // 
             this.label_refl_Wave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label_refl_Wave.AutoSize = true;
-            this.label_refl_Wave.Location = new System.Drawing.Point(393, 12);
+            this.label_refl_Wave.Location = new System.Drawing.Point(397, 12);
             this.label_refl_Wave.Name = "label_refl_Wave";
             this.label_refl_Wave.Size = new System.Drawing.Size(140, 13);
             this.label_refl_Wave.TabIndex = 13;
@@ -428,7 +443,7 @@
             // textBox_refl_Wave
             // 
             this.textBox_refl_Wave.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SeisWide_Surfer.Properties.Settings.Default, "ReflWave", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox_refl_Wave.Location = new System.Drawing.Point(393, 28);
+            this.textBox_refl_Wave.Location = new System.Drawing.Point(397, 28);
             this.textBox_refl_Wave.Name = "textBox_refl_Wave";
             this.textBox_refl_Wave.Size = new System.Drawing.Size(100, 20);
             this.textBox_refl_Wave.TabIndex = 14;
@@ -449,7 +464,8 @@
             this.panel_refl_SecondStage.Controls.Add(this.check_refl_MeanVelocity, 0, 1);
             this.panel_refl_SecondStage.Controls.Add(this.button_refl_SelectContours, 1, 2);
             this.panel_refl_SecondStage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_refl_SecondStage.Location = new System.Drawing.Point(3, 146);
+            this.panel_refl_SecondStage.Location = new System.Drawing.Point(0, 143);
+            this.panel_refl_SecondStage.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.panel_refl_SecondStage.Name = "panel_refl_SecondStage";
             this.panel_refl_SecondStage.RowCount = 6;
             this.panel_refl_SecondStage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -458,14 +474,14 @@
             this.panel_refl_SecondStage.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel_refl_SecondStage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panel_refl_SecondStage.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.panel_refl_SecondStage.Size = new System.Drawing.Size(710, 161);
+            this.panel_refl_SecondStage.Size = new System.Drawing.Size(717, 167);
             this.panel_refl_SecondStage.TabIndex = 1;
             // 
             // label_refl_Contours
             // 
             this.label_refl_Contours.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label_refl_Contours.AutoSize = true;
-            this.label_refl_Contours.Location = new System.Drawing.Point(393, 12);
+            this.label_refl_Contours.Location = new System.Drawing.Point(397, 12);
             this.label_refl_Contours.Name = "label_refl_Contours";
             this.label_refl_Contours.Size = new System.Drawing.Size(148, 13);
             this.label_refl_Contours.TabIndex = 14;
@@ -496,9 +512,9 @@
             this.textBox_refl_Contours.AllowDrop = true;
             this.textBox_refl_Contours.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SeisWide_Surfer.Properties.Settings.Default, "path_contours", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBox_refl_Contours.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_refl_Contours.Location = new System.Drawing.Point(393, 28);
+            this.textBox_refl_Contours.Location = new System.Drawing.Point(397, 28);
             this.textBox_refl_Contours.Name = "textBox_refl_Contours";
-            this.textBox_refl_Contours.Size = new System.Drawing.Size(314, 20);
+            this.textBox_refl_Contours.Size = new System.Drawing.Size(317, 20);
             this.textBox_refl_Contours.TabIndex = 1;
             this.textBox_refl_Contours.Text = global::SeisWide_Surfer.Properties.Settings.Default.path_contours;
             // 
@@ -540,7 +556,7 @@
             // 
             // button_refl_SelectContours
             // 
-            this.button_refl_SelectContours.Location = new System.Drawing.Point(393, 54);
+            this.button_refl_SelectContours.Location = new System.Drawing.Point(397, 54);
             this.button_refl_SelectContours.Name = "button_refl_SelectContours";
             this.panel_refl_SecondStage.SetRowSpan(this.button_refl_SelectContours, 2);
             this.button_refl_SelectContours.Size = new System.Drawing.Size(75, 25);
@@ -632,7 +648,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox deltaTextBox;
         private System.Windows.Forms.Button buttonShowParameters;
-        private System.Windows.Forms.Button button_fe_BindWaves;
         private System.Windows.Forms.TableLayoutPanel panel_refl;
         private System.Windows.Forms.TableLayoutPanel panel_refl_FirstStage;
         private System.Windows.Forms.Label labelFirstStage;
@@ -650,5 +665,7 @@
         private System.Windows.Forms.CheckBox check_refl_SoundCenters;
         private System.Windows.Forms.CheckBox check_refl_Pyramid;
         private System.Windows.Forms.CheckBox check_refl_MeanVelocity;
+        private System.Windows.Forms.Button button_fe_BindWaves;
+        private System.Windows.Forms.Button button_fe_BindUncertainy;
     }
 }

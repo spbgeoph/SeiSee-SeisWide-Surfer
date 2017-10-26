@@ -54,7 +54,7 @@ namespace SeisWide_Surfer
                 return;
             }
 
-            // Should we ensure that these 'records' are actually numbers?
+            // Should we ensure that these 'lines' are actually numbers?
             Properties.Settings.Default.S1_X = record[0];
             Properties.Settings.Default.S1_Y = record[1];
             Properties.Settings.Default.S2_X = record[2];

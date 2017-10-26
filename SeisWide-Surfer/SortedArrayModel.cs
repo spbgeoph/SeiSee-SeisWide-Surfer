@@ -66,9 +66,9 @@ namespace SeisWide_Surfer
                 }
             }
 
-            // at this point we still could add extra records bc of precision issues of 'double' type 
+            // at this point we still could add extra lines bc of precision issues of 'double' type 
             // and therefore not that strict relation 'channel'->'distance'
-            // i.e. records corresponding to one channel with various wave numbers 
+            // i.e. lines corresponding to one channel with various wave numbers 
             // may have slightly different 'distance' value, which shouldn't be the case.
 
             // UPD: ^ irrelevant because now two functions exist who control over 

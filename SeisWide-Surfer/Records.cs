@@ -70,7 +70,7 @@ namespace SeisWide_Surfer
         }
 
         /// <summary>
-        /// Record comparer which orders records using Distance property.
+        /// Record comparer which orders lines using Distance property.
         /// </summary>
         public class DistanceComparer : IComparer<Record>
         {
@@ -82,7 +82,7 @@ namespace SeisWide_Surfer
         }
 
         /// <summary>
-        /// Record comparer which orders records using Time property.
+        /// Record comparer which orders lines using Time property.
         /// </summary>
         public class TimeComparer : IComparer<Record>
         {

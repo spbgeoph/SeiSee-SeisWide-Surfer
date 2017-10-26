@@ -146,7 +146,7 @@ namespace SeisWide_Surfer
 
             double delta, xCenter, offset;
 
-            // while-loop iteraring through all extracted records
+            // while-loop iteraring through all extracted lines
             do
             {
                 Record r = temp.Value;

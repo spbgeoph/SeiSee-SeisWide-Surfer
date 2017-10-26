@@ -140,7 +140,7 @@ namespace SeisWide_Surfer
         }
 
         /// <summary>
-        /// Checks interpolated data if difference between 'time' values of two adjacent records equals to predefined 'timeDelta'.
+        /// Checks interpolated data if difference between 'time' values of two adjacent lines equals to predefined 'timeDelta'.
         /// If this difference is not constant, message box then appears.
         /// </summary>
         /// <param name="timeDelta">Interpolation step.</param>

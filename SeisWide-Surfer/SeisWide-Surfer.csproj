@@ -93,6 +93,12 @@
     <Compile Include="Records.cs" />
     <Compile Include="SortedArrayModel.cs" />
     <Compile Include="TextBoxWriter.cs" />
+    <Compile Include="UncertaintiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UncertaintiesForm.Designer.cs">
+      <DependentUpon>UncertaintiesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WaveBinder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UncertaintiesForm.resx">
+      <DependentUpon>UncertaintiesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WaveBinder.resx">
       <DependentUpon>WaveBinder.cs</DependentUpon>
     </EmbeddedResource>

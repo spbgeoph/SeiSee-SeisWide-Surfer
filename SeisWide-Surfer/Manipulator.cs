@@ -72,7 +72,7 @@ namespace SeisWide_Surfer
         public string SourceBoundTXIN { get { return Path.Combine(Folder, "obj"); } }
 
         /// <summary>
-        /// Gets name of folder where interpolation records are stored.
+        /// Gets name of folder where interpolation lines are stored.
         /// </summary>
         public string SourceInterpolation { get { return Path.Combine(Folder, "Interpolation"); } }
 
@@ -142,7 +142,7 @@ namespace SeisWide_Surfer
         /// <returns>True, if file is consistent, and false otherwise.</returns>
         public bool CheckTXIN(string txin)
         {
-            // SeisWide may bind traces incorrectly. There are may be two records in 'tx.in' file with 
+            // SeisWide may bind traces incorrectly. There are may be two lines in 'tx.in' file with 
             // the same trace and the same wave number. With such an inconsistency in 'tx.in' this program 
             // will seem work normally, though its results are not supposed to be relevant.
 
